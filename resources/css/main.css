@@ -3,6 +3,11 @@ body {
 	/*background-color: #eee*/
 }
 
+.nav-link, .nav-link:hover{
+	text-decoration: none;
+	color: white;
+}
+
 header {
 	background-image: url("../images/Home_Top_Bar.png");
 	height: 100px;
