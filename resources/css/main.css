@@ -1,0 +1,43 @@
+body {
+	/*font-family: "Open Sans Condensed", Impact, sans-serif;*/
+	/*background-color: #eee*/
+}
+
+header {
+	background-image: url("../images/Home_Top_Bar.png");
+	height: 100px;
+	background-repeat: round;
+}
+
+#logo {
+	background-image: url("../images/Magic_Logo.png");
+	height: 70px;
+    width: 238px;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 9px;
+    margin: 0 auto;
+}
+
+#nav-container {
+	display: flex;
+}
+
+#nav-bar {
+	display: inline;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.nav-item {
+	display: inline-block;
+	margin: 0 30px;
+	font-weight: bold;
+	color: white;
+	padding: 5px
+}
+
+.nav-item:hover {
+	background-color: #aaa;
+}
