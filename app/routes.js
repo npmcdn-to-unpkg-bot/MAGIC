@@ -1,6 +1,6 @@
 // app/routes.js
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, graph) {
 
     // route for home page
     app.get('/', function(req, res) {
@@ -17,8 +17,12 @@ module.exports = function(app, passport) {
         res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
         });
-        // gather all of the facebook graph api information now that they are authenticated
-       
+        // get a users information
+        graph
+        .setAccessToken(req.user.facebook.token)
+        .get("/me/friends", function(err, data) {
+          console.log(data);
+        });
     });
 
     // =====================================
