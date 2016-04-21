@@ -1,0 +1,61 @@
+body {
+	margin: 0;
+}
+
+#top {
+	width: 100%;
+	background-image: url("../images/Profile_Color_Band.png");
+	background-size: cover;
+}
+
+#images {
+	display: inline;
+}
+
+#profile-pic {
+	display: block;
+}
+
+#profile-pic img {
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#left-arrow, #right-arrow {
+	padding-top: 90px;
+	display: block;
+}
+
+#left-arrow img, #right-arrow img {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+h4 {
+	text-align: center;
+}
+
+#dividing-bar {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#additional-info {
+	padding-top: 20px;
+}
+
+#about {
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+#bottom {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 70px;
+	background-color: #eeeeee;
+}

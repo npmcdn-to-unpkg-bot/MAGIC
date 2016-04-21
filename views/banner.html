@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <head>
     <meta charset="utf-8">
-    <title>${title}</title>
+    <title>MAGIC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- In real-world webapps, css is usually minified and
          concatenated. Here, separate normalize from our code, and
@@ -9,18 +9,45 @@
     <link rel="stylesheet" href="../resources/css/normalize.css">
     <link rel="stylesheet" href="../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/css/main.css">
+    <link rel="stylesheet" href="../resources/css/wheel.css">
   </head>
   <body>
     <header>
         <div id="logo" align="center">  </div>
         <div id="nav-container">
           <ul id="nav-bar">
-            <li class="nav-item"> <a class="nav-link" href="profile.html">MY MATCHES</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="match.html">MY MATCHES</a> </li>
             <li class="nav-item"> MY PROFILE </li>
             <li class="nav-item"> SETTINGS </li>
           </ul>
         </div>
     </header>
+    <div id="choice">
+      <img style="border: 0;" src="../resources/images/Home_Choice_Circle.png" width="500" height="500" alt="circle" id ="wheel_pic" usemap="#circlemap">
+      <map id="circlemap" name="circlemap">
+        <area 
+            class="area"
+            id="area1"
+            shape="circle"
+              coords="250,74,40"
+              alt="Love" 
+              href="#" class = "link" id = "love" />
+        <area 
+            class="area"
+            id="area2"
+            shape="circle"
+              coords="94,197,41" 
+              alt="Pass"
+              href="#" class = "link" id = "dislike" />
+        <area 
+            class="area"
+            id="area3"
+            shape="circle"
+              coords="405,195,41"
+              alt="Like"
+              href="#" class = "link" id = "like" />
+      </map>
+    </div>
   </body>
 <!-- See http://html5boilerplate.com/ for a good place to start
      dealing with real world issues like old browsers.  -->

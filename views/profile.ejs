@@ -6,36 +6,47 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
-        body        { padding-top:80px; word-wrap:break-word; }
+        body        { word-wrap:break-word; }
     </style>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div class="container">
+    <header>
+        <div id="logo" align="center">  </div>
+        <div id="nav-container">
+          <ul id="nav-bar">
+            <li class="nav-item"> <a class="nav-link" href="match.html">MY MATCHES</a> </li>
+            <li class="nav-item"> MY PROFILE </li>
+            <li class="nav-item"> SETTINGS </li>
+          </ul>
+        </div>
+    </header>
+    <div class="main-container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+      <div class="text-center profile-header">
+        <h1><!--<span class="fa fa-anchor">--></span> My Profile </h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+      </div>
 
-    <div class="row">
+      <div class="row">
 
-        <!-- FACEBOOK INFORMATION -->
+          <!-- FACEBOOK INFORMATION -->
         <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-                    <img src="<%= user.facebook.photo %>" height="200px" width="200px"/>
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %><br>
-                    </p>
+          <div class="well">
+            <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+            <img src="<%= user.facebook.photo %>" height="200px" width="200px"/>
+              <p>
+                  <strong>id</strong>: <%= user.facebook.id %><br>
+                  <strong>token</strong>: <%= user.facebook.token %><br>
+                  <strong>email</strong>: <%= user.facebook.email %><br>
+                  <strong>name</strong>: <%= user.facebook.name %><br>
+              </p>
 
-            </div>
+          </div>
         </div>
 
-    </div>
+      </div>
 
-</div>
+  </div>
 </body>
 </html>

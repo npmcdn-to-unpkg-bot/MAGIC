@@ -46,3 +46,19 @@ header {
 .nav-item:hover {
 	background-color: #aaa;
 }
+
+.main-container {
+	width: 100%
+}
+
+.profile-header {
+	background-image: url("../images/Profile_Color_Band.png");
+	width: 100%;
+	margin: 0 auto;
+	background-repeat: round;
+}
+
+.profile-header h1 {
+	margin: 0;
+	padding: 5px;
+}
