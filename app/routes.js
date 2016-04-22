@@ -29,7 +29,9 @@ module.exports = function(app, passport, graph) {
     // FACEBOOK ROUTES =====================
     // =====================================
     // route for facebook authentication and login
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_friends', 'manage_pages']}));
+    var scope_info = ['email','user_birthday','user_likes','user_photos','user_friends','user_location','user_tagged_places',
+                    'user_events','user_hometown','user_actions.books','user_actions.fitness','user_actions.music'];
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: scope_info}));
 
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
