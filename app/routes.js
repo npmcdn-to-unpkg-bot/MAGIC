@@ -19,6 +19,18 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/match', isLoggedIn, function(req, res) {
+        res.render('match.ejs', {
+
+        });
+    });
+
+    app.get('/play', isLoggedIn, function(req, res) {
+        res.render('play.ejs', {
+            
+        });
+    });
+
     // =====================================
     // FACEBOOK ROUTES =====================
     // =====================================
