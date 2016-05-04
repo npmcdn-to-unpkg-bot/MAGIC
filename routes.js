@@ -21,10 +21,60 @@ module.exports = function(app, passport, graph) {
         res.json(req.user.facebook);
 
          // get a users information
+        var params = { fields: "email,birthday,likes,photos,friends,location,tagged_places,events,hometown,books,music" };
         graph
         .setAccessToken(req.user.facebook.token)
-        .get("/me/friends", function(err, data) {
-          console.log(data);
+        .get("/me", params, function(err, data) {
+            console.log("------------------------------------------------------------");
+            console.log("DATA: ");
+            console.log(data);
+            // SO FAR ONLY PULLING FIRST 25
+            // user email (string)
+            var user_email = data.email;
+            // user birthday (string)
+            var user_birthday = data.birthday;
+            // user likes object {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_likes_object = data.likes;
+            console.log("------------------------------------------------------------");
+            console.log("LIKES: ");
+            console.log(user_likes_object);
+            // user photos object {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_photos_object = data.photos;
+            console.log("------------------------------------------------------------");
+            console.log("PHOTOS: ");
+            console.log(user_photos_object);
+            // user friends object {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_friends_object = data.friends;
+            console.log("------------------------------------------------------------");
+            console.log("FRIENDS: ");
+            console.log(user_friends_object);
+            // user location object {id, name}
+            var user_location_object = data.location;
+            console.log("------------------------------------------------------------");
+            console.log("LOCATION: ");
+            console.log(user_location_object);
+            // user tagged places object {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_tagged_places_object = data.tagged_places;
+            console.log("------------------------------------------------------------");
+            console.log("TAGGED PLACES: ");
+            console.log(user_tagged_places_object);
+            // user events {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_events_object = data.events;
+            console.log("------------------------------------------------------------");
+            console.log("EVENTS: ");
+            console.log(user_events_object);
+            // user hometown {id, name}
+            var user_hometown_object = data.hometown;
+            console.log("------------------------------------------------------------");
+            console.log("HOMETOWN: ");
+            console.log(user_hometown_object);
+            // user music {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_music_object = data.music;
+            console.log("------------------------------------------------------------");
+            console.log("MUSIC: ");
+            console.log(user_music_object);
+
+            // NEED TO GET ALL PAGES OF DATA
         });
     });
 
