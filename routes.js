@@ -54,10 +54,10 @@ module.exports = function(app, passport, graph) {
             console.log("LOCATION: ");
             console.log(user_location_object);
             // user tagged places object {data, paging{cursors{before: string, after: string}, next: string}}
-            var user_tagged_places_object = data.tagged_places;
+            /*var user_tagged_places_object = data.tagged_places;
             console.log("------------------------------------------------------------");
             console.log("TAGGED PLACES: ");
-            console.log(user_tagged_places_object);
+            console.log(user_tagged_places_object);*/
             // user events {data, paging{cursors{before: string, after: string}, next: string}}
             var user_events_object = data.events;
             console.log("------------------------------------------------------------");
