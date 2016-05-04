@@ -1,12 +1,16 @@
-<div class="col-sm-6">
-	<div class="well" *ngIf="profile">
-	<h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-    <img [src]="profile.photo" height="200px" width="200px"/>
-    <p>
-        <strong>id</strong>: {{profile.id}}<br>
-        <strong>token</strong>: {{profile.token}}<br>
-        <strong>email</strong>: {{profile.email}}<br>
-        <strong>name</strong>: {{profile.name}}<br>
-    </p>
-	</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="well" *ngIf="profile">
+                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+                <img [src]="profile.photo" height="200px" width="200px"/>
+                <p>
+                    <strong>id</strong>: {{profile.id}}<br>
+                    <strong>token</strong>: {{profile.token}}<br>
+                    <strong>email</strong>: {{profile.email}}<br>
+                    <strong>name</strong>: {{profile.name}}<br>
+                </p>
+            </div>
+        </div>  
+    </div>
 </div>
