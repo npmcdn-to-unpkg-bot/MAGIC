@@ -1,10 +1,14 @@
-// app/routes.js
+// routes.js
+
+var path = require('path');
+
+var User = require('./models/user');
 
 module.exports = function(app, passport) {
 
     // route for home page
     app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
+        res.sendFile(__dirname + '/index.html'); // load the index.ejs file
     });
 
     // route for login form
@@ -14,8 +18,16 @@ module.exports = function(app, passport) {
 
     // route for showing the profile page
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
+        res.json(req.user.facebook);
+    });
+
+    //testing getting all profiles
+    app.get('/profiles', function (req, res) {
+        User.find({}, function (err, users) {
+            //error checking?
+            res.json(users.map(function (user) {
+                return user.facebook;
+            }));
         });
     });
 
@@ -28,7 +40,7 @@ module.exports = function(app, passport) {
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/profile',
+            successRedirect : '/home',
             failureRedirect : '/'
         }));
 
@@ -38,10 +50,16 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    app.get('/*', function(req, res) {
+        res.sendFile(__dirname + "/index.html"); // load the index.ejs file
+    });
+
 };
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
+
+    return next();
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())

@@ -1,0 +1,9 @@
+<carousel [interval]="myInterval" [noWrap]="noWrapSlides">
+	<slide *ngFor="#profile of profiles" [active]="profile.active">
+		<img [src]="profile.photo" style="margin:auto;">
+		<div class="carousel-caption">
+			<h4>{{profile.name}}</h4>
+			<p>{{profile.email}}</p>
+		</div>
+	</slide>
+</carousel>
