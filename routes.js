@@ -19,6 +19,13 @@ module.exports = function(app, passport, graph) {
     // route for showing the profile page
     app.get('/profile', isLoggedIn, function(req, res) {
         res.json(req.user.facebook);
+
+         // get a users information
+        graph
+        .setAccessToken(req.user.facebook.token)
+        .get("/me/friends", function(err, data) {
+          console.log(data);
+        });
     });
 
     //testing getting all profiles
@@ -28,12 +35,6 @@ module.exports = function(app, passport, graph) {
             res.json(users.map(function (user) {
                 return user.facebook;
             }));
-        });
-        // get a users information
-        graph
-        .setAccessToken(req.user.facebook.token)
-        .get("/me/friends", function(err, data) {
-          console.log(data);
         });
     });
 
