@@ -12,7 +12,7 @@ import {AuthComponent} from './components/auth.component';
 
 @RouteConfig([ 
   { path: '/', name: 'Auth', component: AuthComponent },
-  { path: '/home', name: 'Home', component: HomeComponent },
+  { path: '/home/...', name: 'Home', component: HomeComponent },
   { path: '/**', redirectTo:['Auth'] }, //https://github.com/angular/angular/issues/4055
 ])
 

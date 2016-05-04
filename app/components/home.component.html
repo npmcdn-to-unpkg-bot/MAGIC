@@ -5,13 +5,19 @@
         <a class="navbar-brand">MAGIC</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [router-link]="[routes.heroes.name, routes.heroes.data.defaultChildRoute]">{{routes.heroes.data.title}}</a>
+        <a class="nav-link" [router-link]="[Profile]">My Profile</a>
       </li>
       <li class="nav-item pull-right">
-        <a class="nav-link" [router-link]="[routes.contact.name]">{{routes.contact.data.title}}</a>
+        <a class="nav-link">Find New People</a>
       </li>
       <li class="nav-item pull-right">
-        <a class="nav-link" [router-link]="[routes.aboutUs.name]">{{routes.aboutUs.data.title}}</a>
+        <a class="nav-link">My Matches</a>
+      </li>
+      <li class="nav-item pull-right">
+        <a class="nav-link">Settings</a>
+      </li>
+      <li class="nav-item pull-right">
+        <a class="nav-link">Logout</a>
       </li>
     </ul>
   </div>
