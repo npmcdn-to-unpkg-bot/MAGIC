@@ -1,5 +1,5 @@
 import {Injectable}     from 'angular2/core';
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
 import {Settings}       from '../models/settings';
 
@@ -17,9 +17,13 @@ export class SettingsService {
 
 	postSettings (settings: Settings) : void {
 		//success and error catching later?
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 		let test = JSON.stringify(settings);
 		console.log(test);
-		this.http.post(this._matchingUrl, test)
+		this.http.post(this._matchingUrl, test, {
+				headers: headers
+			})
 			.map(this.extractData)
 			.catch(this.handleError)
 			.subscribe(
