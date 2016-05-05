@@ -43,12 +43,20 @@ var userSchema = mongoose.Schema({
     tagged_places    : [{
         id           : String,
         created_time : String,
-        place        : [Object]
+        place        : {
+            id       : String,
+            location : Object,
+            name     : String
+        }
     }],
     events           : [{
         description  : String,
         name         : String,
-        place        : [Object],
+        place        : {
+            id       : String,
+            location : Object,
+            name     : String
+        },
         start_time   : String,
         id           : String,
         rsvp_status  : String
