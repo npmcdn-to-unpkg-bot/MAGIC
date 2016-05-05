@@ -15,6 +15,9 @@ module.exports = function(app, passport, graph) {
     // route for processing the login form
     // route for signup form
     // route for processing the signup form
+    app.post('/settings/matching', isLoggedIn, function(req, res) {
+
+    });
 
     // route for showing the profile page
     app.get('/profile', isLoggedIn, function(req, res) {
