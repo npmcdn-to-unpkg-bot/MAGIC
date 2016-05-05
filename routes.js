@@ -43,10 +43,11 @@ module.exports = function(app, passport, graph) {
             var user_events_object = data.events;
             var user_music_object = data.music;
             var user_book_object = data.books;
+            /*console.log(user_tagged_places_object.data);*/
 
             // NOT FINDING THE SAME USER -- SAVING MORE THAN ONE TIME
             // NOT RECOGONIZING PLACE -- NEED TO SPECIFY EXACT TYPE
-             User.findOne({'authenticate.email': req.user.authenticate.email}, function (err, user) {
+             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
                 console.log(user);
                 // check basic user info exists
                 if (user_first_name !== undefined) {
