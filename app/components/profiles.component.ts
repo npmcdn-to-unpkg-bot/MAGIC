@@ -25,10 +25,10 @@ export class ProfilesComponent implements OnInit {
 
 	ngOnInit() { this.getProfiles(); }
 
-  	getProfiles() {
-    	this._profilesService.getProfiles()
-    		.subscribe(
-                       profiles => this.profiles = profiles,
-                       error =>  this.errorMessage = <any>error);
+	getProfiles() {
+  	this._profilesService.getProfiles()
+  		.subscribe(
+                     profiles => this.profiles = profiles,
+                     error =>  this.errorMessage = <any>error);
   }
 }
