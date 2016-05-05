@@ -25,6 +25,7 @@ export class SettingsComponent implements OnInit {
   	}
 
   	postSettings() {
+  		console.log('hello');
   		this._settingsService.postSettings(this.settings);
   	}
 }

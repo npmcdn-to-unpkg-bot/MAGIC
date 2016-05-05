@@ -35,6 +35,7 @@ module.exports = function(app, passport, graph) {
                 }
             });
         });
+        res.json({});
     });
 
     // route for showing the profile page
