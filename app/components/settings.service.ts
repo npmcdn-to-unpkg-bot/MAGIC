@@ -17,7 +17,9 @@ export class SettingsService {
 
 	postSettings (settings: Settings) : void {
 		//success and error catching later?
-		this.http.post(this._matchingUrl, JSON.stringify(settings))
+		let test = JSON.stringify(settings);
+		console.log(test);
+		this.http.post(this._matchingUrl, test)
 			.map(this.extractData)
 			.catch(this.handleError)
 			.subscribe(

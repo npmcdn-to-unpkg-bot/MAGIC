@@ -8,18 +8,17 @@
             <h3 class="text-primary">Matching algorithm</h3>
             <p class="text-primary"> Pick how you want to match with people:</p>
             <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
-            <div *ngIf="settings">
-              <input type="checkbox" [ngModel]="settings.likes"><span class="text-primary"> Likes </span><br>
-              <input type="checkbox" [ngModel]="settings.friends"><span class="text-primary"> Friends </span><br>
-              <input type="checkbox" [ngModel]="settings.location"><span class="text-primary"> Location </span><br>
-              <input type="checkbox" [ngModel]="settings.hometown"><span class="text-primary"> Hometown </span><br>
-              <input type="checkbox" [ngModel]="settings.tagged_places"><span class="text-primary"> Tagged Places </span><br>
-              <input type="checkbox" [ngModel]="settings.events"><span class="text-primary"> Events </span><br>
-              <input type="checkbox" [ngModel]="settings.music"><span class="text-primary"> Music </span><br>
-              <input type="checkbox" [ngModel]="settings.books"><span class="text-primary"> Books </span><br>
+            <form *ngIf="settings">
+              <input type="checkbox" [(ngModel)]="settings.likes"><span class="text-primary"> Likes </span><br>
+              <input type="checkbox" [(ngModel)]="settings.friends"><span class="text-primary"> Friends </span><br>
+              <input type="checkbox" [(ngModel)]="settings.location"><span class="text-primary"> Location </span><br>
+              <input type="checkbox" [(ngModel)]="settings.hometown"><span class="text-primary"> Hometown </span><br>
+              <input type="checkbox" [(ngModel)]="settings.tagged_places"><span class="text-primary"> Tagged Places </span><br>
+              <input type="checkbox" [(ngModel)]="settings.events"><span class="text-primary"> Events </span><br>
+              <input type="checkbox" [(ngModel)]="settings.music"><span class="text-primary"> Music </span><br>
+              <input type="checkbox" [(ngModel)]="settings.books"><span class="text-primary"> Books </span><br>
               <button (click)="postSettings()" class="btn btn-primary">Change Preferences</button>
-            </div>
-            
+            </form>  
         </div> 
     </div>
 </div>
