@@ -19,6 +19,8 @@ module.exports = function(app, passport, graph) {
     // gets the users matching settings
     app.get('/settings/matching', isLoggedIn, function(req, res) {
         User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+            console.log("GET: ");
+            console.log(user.settings);
             res.json(user.settings);
         });
     });
@@ -26,6 +28,9 @@ module.exports = function(app, passport, graph) {
     app.post('/settings/matching', isLoggedIn, function(req, res) {
         User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
             // CLEAN THE DATA. DON'T PUT INPUT DIRECTLY IN DB
+            console.log("POST: ");
+            console.log(user.settings);
+            console.log(req.body);
             user.settings = req.body;
             // save the new settings information in the db
             user.save(function (err) {
