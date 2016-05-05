@@ -15,8 +15,26 @@ module.exports = function(app, passport, graph) {
     // route for processing the login form
     // route for signup form
     // route for processing the signup form
-    app.post('/settings/matching', isLoggedIn, function(req, res) {
 
+    // gets the users matching settings
+    app.get('/settings/matching', isLoggedIn, function(req, res) {
+        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+            res.json(user.settings);
+        });
+    });
+
+    app.post('/settings/matching', isLoggedIn, function(req, res) {
+        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+            // CLEAN THE DATA. DON'T PUT INPUT DIRECTLY IN DB
+            user.settings = req.body;
+            // save the new settings information in the db
+            user.save(function (err) {
+                if(err) {
+                    console.log("ERROR!");
+                    console.error('ERROR! Couldn\'t save profile information.');
+                }
+            });
+        });
     });
 
     // route for showing the profile page
