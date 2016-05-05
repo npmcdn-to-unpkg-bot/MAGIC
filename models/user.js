@@ -27,20 +27,41 @@ var userSchema = mongoose.Schema({
         name         : String
     },
     likes            : [{
+        name         : String,
         id           : String,
-        name         : String
+        created_time : String
+    }],
+    photos           : [{
+        created_time : String,
+        name         : String,
+        id           : String
     }],
     friends          : [{
-        id           : String,
-        name         : String
+        name         : String,
+        id           : String
     }],
-    books            : [{
+    tagged_places    : [{
         id           : String,
-        name         : String
+        created_time : String,
+        place        : [Object]
+    }],
+    events           : [{
+        description  : String,
+        name         : String,
+        place        : [Object],
+        start_time   : String,
+        id           : String,
+        rsvp_status  : String
     }],
     music            : [{
+        name         : String,
         id           : String,
-        name         : String
+        created_time : String
+    }],
+    books            : [{
+        name         : String,
+        id           : String,
+        created_time : String
     }]
 
 

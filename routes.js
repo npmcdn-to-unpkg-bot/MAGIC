@@ -20,70 +20,35 @@ module.exports = function(app, passport, graph) {
     app.get('/profile', isLoggedIn, function(req, res) {
         res.json(req.user.authenticate);
 
-       
         // set the params for what user information to get from the api
-        var params = { fields: "first_name,last_name,gender,birthday,email,likes,photos,friends,location,tagged_places,events,hometown,books,music" };
+        var params = {fields: "first_name,last_name,gender,birthday,email,likes.limit(100),photos.limit(50),friends.limit(50),location,tagged_places.limit(50),events.limit(50),hometown,books.limit(50),music.limit(50)" };
         graph
         .setAccessToken(req.user.authenticate.token)
         .get("/me", params, function(err, data) {
-            console.log("------------------------------------------------------------");
-            console.log(data);
-            // SO FAR ONLY PULLING FIRST 25
-            // user email (string
+            // basic user information (string)
             var user_first_name = data.first_name;
             var user_last_name = data.last_name;
             var user_gender = data.gender;
             var user_birthday = data.birthday;
             var user_email = data.email;
-            // user birthday (string)
-            // user likes object {data, paging{cursors{before: string, after: string}, next: string}}
-            /*var user_likes_object = data.likes;
-            console.log("------------------------------------------------------------");
-            console.log("LIKES: ");
-            console.log(user_likes_object);*/
-            // user photos object {data, paging{cursors{before: string, after: string}, next: string}}
-            var user_photos_object = data.photos;
-            /*console.log("------------------------------------------------------------");
-            console.log("PHOTOS: ");
-            console.log(user_photos_object);*/
-            // user friends object {data, paging{cursors{before: string, after: string}, next: string}}
-            var user_friends_object = data.friends;
-            /*console.log("------------------------------------------------------------");
-            console.log("FRIENDS: ");
-            console.log(user_friends_object);*/
-            // user location object {id, name}
-            var user_location_object = data.location;
-            /*console.log("------------------------------------------------------------");
-            console.log("LOCATION: ");
-            console.log(user_location_object);*/
-            // user tagged places object {data, paging{cursors{before: string, after: string}, next: string}}
-            /*var user_tagged_places_object = data.tagged_places;
-            console.log("------------------------------------------------------------");
-            console.log("TAGGED PLACES: ");
-            console.log(user_tagged_places_object);*/
-            // user events {data, paging{cursors{before: string, after: string}, next: string}}
-            /*var user_events_object = data.events;
-            console.log("------------------------------------------------------------");
-            console.log("EVENTS: ");
-            console.log(user_events_object);*/
-            // user hometown {id, name}
+            // user location information {id, name}
             var user_hometown_object = data.hometown;
-           /* console.log("------------------------------------------------------------");
-            console.log("HOMETOWN: ");
-            console.log(user_hometown_object);*/
-            // user music {data, paging{cursors{before: string, after: string}, next: string}}
-            var user_music_object = data.music;
-           /* console.log("------------------------------------------------------------");
-            console.log("MUSIC: ");
-            console.log(user_music_object);*/
-            var user_book_object = data.books;
-           /* console.log("------------------------------------------------------------");
-            console.log("Books: ");
-            console.log(user_book_object);*/
+            var user_location_object = data.location;
 
-            // NEED TO GET ALL PAGES OF DATA
-             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+            // user data {data, paging{cursors{before: string, after: string}, next: string}}
+            var user_likes_object = data.likes;
+            var user_photos_object = data.photos;
+            var user_friends_object = data.friends;
+            var user_tagged_places_object = data.tagged_places;
+            var user_events_object = data.events;
+            var user_music_object = data.music;
+            var user_book_object = data.books;
+
+            // NOT FINDING THE SAME USER -- SAVING MORE THAN ONE TIME
+            // NOT RECOGONIZING PLACE -- NEED TO SPECIFY EXACT TYPE
+             User.findOne({'authenticate.email': req.user.authenticate.email}, function (err, user) {
                 console.log(user);
+                // check basic user info exists
                 if (user_first_name !== undefined) {
                     user.first_name = user_first_name;
                 }
@@ -99,15 +64,39 @@ module.exports = function(app, passport, graph) {
                 if (user_email !== undefined) {
                     user.email = user_email;
                 }
+                // check user location info exits
                 if (user_hometown_object !== undefined) {
                     user.hometown = user_hometown_object;
                 }
                 if (user_location_object !== undefined) {
                     user.location = user_location_object;
                 }
+                // check user data exists
+                if (user_likes_object !== undefined) {
+                    user.likes = user_likes_object.data;
+                }
+                if (user_photos_object !== undefined) {
+                    user.photos = user_photos_object.data;
+                }
+                if (user_friends_object !== undefined) {
+                    user.friends = user_friends_object.data;
+                }
+                if (user_tagged_places_object !== undefined) {
+                    user.tagged_places = user_tagged_places_object.data;
+                }
+                if (user_events_object !== undefined) {
+                    user.events = user_events_object.data;
+                }
+                if (user_music_object !== undefined) {
+                    user.music = user_music_object.data;
+                }
+                if (user_book_object !== undefined) {
+                    user.books = user_book_object.data;
+                }
                 
                 user.save(function (err) {
                     if(err) {
+                        console.log("ERROR!");
                         console.error('ERROR! Couldn\'t save profile information.');
                     }
                 });
