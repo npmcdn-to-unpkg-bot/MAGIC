@@ -70,10 +70,8 @@ var userSchema = mongoose.Schema({
         name         : String,
         id           : String,
         created_time : String
-    }]
-
-
-
+    }],
+    settings         : Object
 });
 
 // methods ======================

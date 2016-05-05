@@ -18,10 +18,14 @@ nav {
 }
 
 .inner-container {
-	width: 50%;
+	width: 60%;
 	margin-top: 10%;
-	margin-left: 25%;
-	text-align: center;
+	margin-left: 20%;
+  word-wrap: break-word
+}
+
+.centered-container {
+  text-align: center;
 }
 
 .large-container {
@@ -69,7 +73,7 @@ nav {
   color:#BBBBBB;
 }
 
-.btn-primary{
+.btn-primary {
   padding:15px;
   border-radius:5px;
   @include disable;

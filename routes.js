@@ -18,6 +18,7 @@ module.exports = function(app, passport, graph) {
 
     // route for showing the profile page
     app.get('/profile', isLoggedIn, function(req, res) {
+
         res.json(req.user.authenticate);
 
         // set the params for what user information to get from the api
@@ -103,7 +104,7 @@ module.exports = function(app, passport, graph) {
     });
 
     //testing getting all profiles
-    app.get('/profiles', function (req, res) {
+    app.get('/profiles', isLoggedIn, function (req, res) {
         User.find({}, function (err, users) {
             //error checking?
             res.json(users.map(function (user) {
@@ -141,8 +142,6 @@ module.exports = function(app, passport, graph) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
-    return next();
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())

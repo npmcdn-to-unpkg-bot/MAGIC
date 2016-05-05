@@ -1,18 +1,16 @@
 <div class="container">
     <div class="large-container">
-        <div class="col-sm-6">
-            <div class="page-header text-center">
-                <h1 class="title-secondary"> Profile Page</h1>
-            </div>
-        
-            <div style="word-wrap: break-word" class="inner-container" *ngIf="profile">
-                <h3 class="text-primary">Facebook</h3>
-                <img [src]="profile.photo" height="200px" width="200px"/>
-                <p>
-                    <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
-                    <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
-                </p>
-            </div>
-        </div>  
+        <div class="page-header text-center">
+            <h1 class="title-secondary"> Profile Page</h1>
+        </div>
+    
+        <div class="inner-container" *ngIf="profile">
+            <h3 class="text-primary">Facebook</h3>
+            <img [src]="profile.photo" height="200px" width="200px"/>
+            <p>
+                <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
+                <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
+            </p>
+        </div> 
     </div>
 </div>
