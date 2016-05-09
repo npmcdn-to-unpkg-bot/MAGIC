@@ -3,6 +3,10 @@
 var path = require('path');
 
 var User = require('./models/user');
+var Message = require('./models/message');
+
+//map from socket ids to websockets
+var sockets;
 
 module.exports = function(app, passport, graph) {
 
@@ -146,6 +150,34 @@ module.exports = function(app, passport, graph) {
         // //picture
         // //age range
         // //shared interests
+    });
+
+    app.get('/matches', isLoggedIn, function (req, res) {
+        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+            res.json()
+        });
+    });
+
+    app.get('/messages', isLoggedIn, function (req, res) {
+
+    });
+
+    app.post('/messages', isLoggedIn, function (req, res) {
+        var newMessage = new Message();
+
+        newMessage.fromId = req.user.authenticate.id;
+        //SECURITY: verify that this user is one of their matches
+        newMessage.toId = req.body.toId;
+        newMessage.message = req.body.message;
+        newMessage.timestamp = new Date();
+        newMessage.save(function(err) {
+            if (err)
+                res.sendStatus(500);
+
+            res.sendStatus(200);
+
+            // TODO: if successful and toId websocket is connected, send the message through websocket
+        });
     });
 
     // =====================================
