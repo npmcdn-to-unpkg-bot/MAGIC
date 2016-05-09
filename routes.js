@@ -4,6 +4,7 @@ var path = require('path');
 
 var User = require('./models/user');
 var Message = require('./models/message');
+var Match = require('./models/match');
 
 //map from socket ids to websockets
 var sockets;
