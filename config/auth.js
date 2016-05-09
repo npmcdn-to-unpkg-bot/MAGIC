@@ -1,7 +1,6 @@
 // config/auth.js
 
-var callbackURL = process.env.heroku ? 'http://cs132-magic.com/auth/facebook/callback' : 'http://localhost:8080/auth/facebook/callback';
-
+var callbackURL = process.env.heroku ? 'http://cs132-magic.herokuapp.com/auth/facebook/callback' : 'http://localhost:8080/auth/facebook/callback';
 
 // expose our config directly to our application using module.exports
 module.exports = {
