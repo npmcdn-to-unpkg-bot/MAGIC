@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 // define the schema for our user model
-var matchScema = mongoose.Schema({
+var matchSchema = mongoose.Schema({
     users: [{
     	id: String,
     	accept: Boolean
