@@ -136,16 +136,39 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/match', isLoggedIn, function (req, res) {
+        var matchSettings;
+        var userData;
+        var potentialMatches;
 
-        // req.user 
+        // Retrieve user data
+        User.findOne({'authenticate.id' : req.user.authenticate.id}, function (err, user) {
+            if (err) {
+                console.error(err);
+                return;
+            } 
+            userData = user;
+            matchSettings = user.settings;
+        });
 
-        // User.find()
+        // Find other profiles in the user's location
+        User.find({ 
+            'location.id' : userData.location.id, 
+            'authenticate.id' : { $not : userData.authenticate.id },
+        }, function (err, users) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            potentialMatches = users;
+        });
 
-        // res.json()
-        // //name
-        // //picture
-        // //age range
-        // //shared interests
+        var matchRanking = {} ;
+        for (var i = 0; i < potentialMatches.length; i+=1) {
+            for (var j = 0; j < Object.keys(matchSettings).length; j+=1) {
+                if ()
+            }
+        }
+
     });
 
     // =====================================
