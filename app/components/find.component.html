@@ -1,7 +1,22 @@
 <div class="container">
-	<div class="row">
-		<div class="col-sm-6">
-			<p>wow nice meme</p>
-		</div>
-	</div>
+    <div class="large-container">
+        <div class="page-header text-center">
+            <h1 class="title-secondary"> Meet New People</h1>
+        </div>
+    
+        <div class="inner-container" *ngIf="profile">
+            <h3 class="text-primary">Info</h3>
+            <img [src]="profile.photo" height="200px" width="200px"/>
+            <p>
+                <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
+                <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
+                <!--Add more once server is ready --> 
+               
+            </p>
+             <div class="button-bar">
+                 <button (click)="postChoice(1)" class="button like">like</button>
+                 <button (click)="postChoice(0)" class="button pass">pass</button>
+            </div>
+        </div> 
+    </div>
 </div>
