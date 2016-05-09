@@ -135,6 +135,19 @@ module.exports = function(app, passport, graph) {
         });
     });
 
+    app.get('/match', isLoggedIn, function (req, res) {
+
+        // req.user 
+
+        // User.find()
+
+        // res.json()
+        // //name
+        // //picture
+        // //age range
+        // //shared interests
+    });
+
     // =====================================
     // FACEBOOK ROUTES =====================
     // =====================================
