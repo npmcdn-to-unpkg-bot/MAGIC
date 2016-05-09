@@ -66,7 +66,7 @@ module.exports = function(app, passport, graph) {
             var user_music_object = data.music;
             var user_book_object = data.books;
             
-            console.log(user_likes_object.data)
+            //console.log(user_likes_object.data)
             // find the current user and update their information
             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
                 // check basic user info exists
@@ -135,8 +135,11 @@ module.exports = function(app, passport, graph) {
         });
     });
 
-    app.get('/match', isLoggedIn, function (req, res) {
-
+    app.post('/match', isLoggedIn, function (req, res) {
+        console.log("called");
+        console.log(req.body);
+        console.log(req.user.authenticate.id)
+        res.json({});
         // req.user 
 
         // User.find()

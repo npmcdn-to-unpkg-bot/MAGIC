@@ -6,7 +6,7 @@ import {Profile}        from './models/profile';
 @Injectable()
 export class FindService {
 
-  decision: string;
+  decision: boolean;
 
   constructor (private http: Http) {}
  //call will be to a different server function

@@ -34,6 +34,7 @@ export class FindComponent {
 
   postChoice(choice){
   	this._profilesService.postDecision(choice);
+    console.log(this.profile.id);
   	this.getProspect();
 
   }
