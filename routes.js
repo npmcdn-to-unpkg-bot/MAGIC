@@ -167,11 +167,42 @@ module.exports = function(app, passport, graph) {
             potentialMatches = users;
         });
 
-        var matchRanking = {} ;
+        // Takes in an associative array of { userID: __, score: }
+        var matchRanking = new FastPriorityQueue(function (a, b) {
+            return a.score > b.score;
+        });
+        
         for (var i = 0; i < potentialMatches.length; i+=1) {
-            for (var j = 0; j < Object.keys(matchSettings).length; j+=1) {
-                if ()
+            var currScore = 0;
+            var matchSettingsKeys = Object.keys(matchSettings);
+
+
+            for (var j = 0; j < matchSettingsKeys.length; j+=1) {
+                if (matchSettings.matchSettingsKeys[j]) {
+
+                    if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
+                        if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
+                            score += 1;
+                        }
+                    } else { // list of attributes
+                        for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
+                            var userAttr = userData.matchSettingsKeys[j][k];
+                            for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
+                                if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
+                                    score += 1;
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
+            var currMatch = {
+                userID : potentialMatches[i].authenticate.id,
+                score  : currScore
+            };
+
+            matchRanking.add(currMatch);
         }
 
     });
