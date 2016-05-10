@@ -6,5 +6,8 @@ export class Prospect {
     public last_name:string,
     public gender:string,
     public hometown:string,
-    public photo:string) { }
+    public photo:string,
+    public age:string,
+    public score:string
+    ) { }
 }
