@@ -174,7 +174,10 @@ module.exports = function(app, passport, graph) {
 
 
     app.get('/matches', isLoggedIn, function (req, res) {
-        console.log("calleddddddddddddddddddddddddd");
+
+
+        console.log("called server side");
+
         
         var userData = req.user;
         var matchSettings = userData.settings;
@@ -203,17 +206,19 @@ module.exports = function(app, passport, graph) {
                 for (var j = 0; j < matchSettingsKeys.length; j+=1) {
                     var matchSettingKey = matchSettingsKeys[j];
                     if (matchSettingKey) {
-                        if (userData[matchSettingKey].length === undefined) { // i.e. not a list
-                            if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
-                                currScore += 1;
-                            }
-                        } else { // list of attributes
+                        if (Array.isArray(userData[matchSettingKey])) { // Array
                             for (var k = 0; k < userData[matchSettingKey].length; k+=1) { 
                                 var userAttr = userData[matchSettingKey][k];
                                 for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
                                     if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
                                         currScore += 1;
                                     }
+                                }
+                            }
+                        } else { // not a list
+                            if (userData[matchSettingKey]) {
+                                if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
+                                    currScore += 1;
                                 }
                             }
                         }
@@ -229,24 +234,28 @@ module.exports = function(app, passport, graph) {
 
                 matchRanking.add(currMatch);
             }
+            if (matchRanking.size > 0) {
+                var topMatch = matchRanking.poll();
+                User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    } 
+                    var prospect = {
+                        id: user.authenticate.id,
+                        email: user.authenticate.email,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        gender: user.gender,
+                        photo: user.authenticate.photo
+                    };
+                    console.log(prospect);
 
-            var topMatch = matchRanking.poll();
-            User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
-                if (err) {
-                    console.error(err);
-                    return;
-                } 
-                var prospect = {
-                    id: user.authenticate.id,
-                    email: user.authenticate.email,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    gender: user.gender,
-                    photo: user.authenticate.photo
-                };
-
-                res.json(prospect);
-            });
+                    res.json(prospect);
+                });
+            } else {
+                res.sendStatus(404);
+            }
         });
     });
 
