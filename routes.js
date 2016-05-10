@@ -23,6 +23,7 @@ module.exports = function(app, passport, graph) {
 
     // gets the users matching settings
     app.get('/settings/matching', isLoggedIn, function(req, res) {
+        console.log("setting called");
         User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
             res.json(user.settings);
         });
@@ -173,7 +174,7 @@ module.exports = function(app, passport, graph) {
 
 
     app.get('/matches', isLoggedIn, function (req, res) {
-        console.log("called");
+        console.log("calleddddddddddddddddddddddddd");
         
         var matchSettings;
         var userData;
