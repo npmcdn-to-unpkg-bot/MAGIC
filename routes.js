@@ -78,6 +78,7 @@ module.exports = function(app, passport, graph) {
                 }
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
+                    
                 }
                 if (user_birthday !== undefined) {
                     user.birthday = user_birthday;

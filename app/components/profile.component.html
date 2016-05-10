@@ -27,8 +27,23 @@
     </div>
 
     <div class="magic-wrapper" *ngIf="profile">
+        <div class="magic-text-primary magic-text-centered"> User Likes:</div>
+        <div class="magic-wrapper" *ngFor="#like of profile.likes"><span class="magic-text-normal"> {{like.name}}</span></div>
+    </div>
+
+    <div class="magic-wrapper" *ngIf="profile">
         <div class="magic-text-primary magic-text-centered"> Recent Events:</div>
         <div class="magic-wrapper" *ngFor="#event of profile.events"><span class="magic-text-normal"> {{event.name}}</span></div>
+    </div>
+
+    <div class="magic-wrapper" *ngIf="profile">
+        <div class="magic-text-primary magic-text-centered"> Favorite Books:</div>
+        <div class="magic-wrapper" *ngFor="#book of profile.books"><span class="magic-text-normal"> {{book.name}}</span></div>
+    </div>
+
+    <div class="magic-wrapper" *ngIf="profile">
+        <div class="magic-text-primary magic-text-centered"> Liked Music:</div>
+        <div class="magic-wrapper" *ngFor="#music of profile.music"><span class="magic-text-normal"> {{music.name}}</span></div>
     </div>
     <!-- <div class="magic-right-wrapper magic-text-centered" *ngIf="profile">
         
