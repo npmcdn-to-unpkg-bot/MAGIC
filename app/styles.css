@@ -37,6 +37,7 @@ nav {
 /* CSS for containers */
 .magic-inner-container {
 	width: 60%;
+  height: auto;
 	margin-top: 10%;
 	margin-left: 20%;
   word-wrap: break-word;
