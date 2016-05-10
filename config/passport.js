@@ -5,7 +5,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
 var User       = require('../models/user');
-var Match      = require('../models/match');
 
 // load the auth variables
 var configAuth = require('./auth');
@@ -73,16 +72,6 @@ module.exports = function(passport) {
 
                         // if successful, return the new user
                         return done(null, newUser);
-                    });
-
-                    var newMatch = new Match();
-
-                    newMatch.user = profile.id;
-                    newMatch.likes = [];
-                    
-                    newMatch.save(function (err) {
-                        if (err)
-                            throw err;
                     });
                 }
             });
