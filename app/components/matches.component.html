@@ -7,7 +7,9 @@
         <div class="inner-container">
             <div class="row">
                 <div class="col-sm-4">
-                    Hello
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="#match of matched">{{match}}</li>
+                    </ul>
                 </div>
                 <div class="col-sm-8">
                     Hello too

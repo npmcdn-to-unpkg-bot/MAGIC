@@ -226,6 +226,8 @@ module.exports = function(app, passport, graph) {
                     score  : currScore
                 };
 
+                console.log('added');
+
                 matchRanking.add(currMatch);
             }
             if (matchRanking.size > 0) {
