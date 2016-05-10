@@ -6,6 +6,8 @@ var User = require('./models/user');
 var Message = require('./models/message');
 var Match = require('./models/match');
 
+var FastPriorityQueue = require("fastpriorityqueue");
+
 //map from socket ids to websockets
 var sockets;
 
@@ -169,6 +171,8 @@ module.exports = function(app, passport, graph) {
         
         res.json({});
 
+    });
+
     app.get('/matches', isLoggedIn, function (req, res) {
         var userData = req.user;
         var matchSettings = userData.settings;
@@ -184,45 +188,46 @@ module.exports = function(app, passport, graph) {
                 return;
             }
             potentialMatches = users;
-        });
 
-        // Takes in an associative array of { userID: __, score: }
-        var matchRanking = new FastPriorityQueue(function (a, b) {
-            return a.score > b.score;
-        });
-        
-        for (var i = 0; i < potentialMatches.length; i+=1) {
-            var currScore = 0;
-            var matchSettingsKeys = Object.keys(matchSettings);
+            // Takes in an associative array of { userID: __, score: }
+            var matchRanking = new FastPriorityQueue(function (a, b) {
+                return a.score > b.score;
+            });
+            
+            for (var i = 0; i < potentialMatches.length; i+=1) {
+                var currScore = 0;
+                var matchSettingsKeys = Object.keys(matchSettings);
 
 
-            for (var j = 0; j < matchSettingsKeys.length; j+=1) {
-                if (matchSettings.matchSettingsKeys[j]) {
+                for (var j = 0; j < matchSettingsKeys.length; j+=1) {
+                    if (matchSettings.matchSettingsKeys[j]) {
 
-                    if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
-                        if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
-                            score += 1;
-                        }
-                    } else { // list of attributes
-                        for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
-                            var userAttr = userData.matchSettingsKeys[j][k];
-                            for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
-                                if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
-                                    score += 1;
+                        if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
+                            if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
+                                score += 1;
+                            }
+                        } else { // list of attributes
+                            for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
+                                var userAttr = userData.matchSettingsKeys[j][k];
+                                for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
+                                    if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
+                                        score += 1;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                var currMatch = {
+                    userID : potentialMatches[i].authenticate.id,
+                    score  : currScore
+                };
+
+                matchRanking.add(currMatch);
             }
-
-            var currMatch = {
-                userID : potentialMatches[i].authenticate.id,
-                score  : currScore
-            };
-
-            matchRanking.add(currMatch);
-        }
+        });
+    });
 
     app.get('/matched', isLoggedIn, function (req, res) {
         Match.findOne({'user': req.user.authenticate.id}, function (err, data) {
@@ -290,7 +295,7 @@ module.exports = function(app, passport, graph) {
         res.sendFile(__dirname + "/index.html"); // load the index.ejs file
     });
 
-};
+}
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
