@@ -41,3 +41,7 @@
 #magic-message-input {
 	width: 60%;
 }
+
+.magic-user-name {
+	overflow: visible;
+}
