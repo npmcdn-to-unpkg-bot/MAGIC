@@ -117,6 +117,8 @@ module.exports = function(app, passport, graph) {
 
                 res.json(user);
                 
+                res.json(user);
+
                 user.save(function (err) {
                     if(err) {
                         console.log("ERROR!");
@@ -144,11 +146,12 @@ module.exports = function(app, passport, graph) {
 
         req.user.matches[otherId] = decision;
 
+        console.log(req.user.matches);
+
         req.user.save(function (err) {
             if(err) {
                 console.log("ERROR!");
                 console.error('ERROR! Couldn\'t save profile information.');
-
             }
 
             res.json({});
