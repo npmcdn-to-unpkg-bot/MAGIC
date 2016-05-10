@@ -72,7 +72,6 @@ var userSchema = mongoose.Schema({
         created_time : String
     }],
     settings         : Object,
-    prospect         : Object,
     matches          : Object
 });
 

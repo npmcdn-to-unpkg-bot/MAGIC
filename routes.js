@@ -165,6 +165,8 @@ module.exports = function(app, passport, graph) {
         var userData = req.user;
         var matchSettings = userData.settings;
 
+        console.log(userData.matches);
+
         // Find other profiles in the user's location that have not been liked
         var options = { 
             'location.id' : userData.location.id, 
