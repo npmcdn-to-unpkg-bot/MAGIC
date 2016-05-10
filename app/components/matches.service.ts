@@ -1,7 +1,8 @@
 import {Injectable}     from 'angular2/core';
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
 import {Match}          from '../models/match';
+import {Message} from '../models/message';
 
 @Injectable()
 export class MatchesService {
@@ -9,12 +10,29 @@ export class MatchesService {
   constructor (private http: Http) {}
 
   private _matchesUrl = 'matches';
-  private _profilesUrl = 'profiles';  // URL to web api
+  private _messagesUrl = 'messages';  // URL to web api
 
   getMatches (): Observable<[Match]> {
     return this.http.get(this._matchesUrl)
     .map(this.extractData)
     .catch(this.handleError);
+  }
+
+  getMessages (id: string): Observable<[Message]> {
+    return this.http.get(this._messagesUrl + '/' + id)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  postMessage (id: string, message: string) : any {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let test = JSON.stringify({id: id, message: message});
+    console.log(test);
+    return this.http.post(this._messagesUrl, test, {
+        headers: headers
+      }).map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

@@ -17,8 +17,9 @@ export class MatchesComponent {
 	constructor (private _matchesService: MatchesService) {}
 
 	public matches : [Match];
-	public selection : String;
-	public messages : [Message];
+	public selection : Match;
+	public messages : any;
+	public newMessage: string;
 	public errorMessage: string;
 
 	ngOnInit() { this.getMatched(); }
@@ -31,10 +32,36 @@ export class MatchesComponent {
 
 	}
 
-	makeSelection(match : String) {
+	makeSelection(match : Match) {
 		this.selection = match;
+		this.getMessages();
+	}
 
+	getMessages() {
+		this._matchesService.getMessages(this.selection.id)
+		.subscribe(
+		  messages => {
+		  	this.messages = messages.map(message => {
+		  		return new Message(
+		  			message.fromId,
+		  			message.toId,
+		  			message.message,
+		  			new Date(message.timestamp)
+		  		);
+		  	});
+		  },
+		  error =>  this.errorMessage = <any>error);
+	}
 
+	postMessage() {
+		this._matchesService.postMessage(this.selection.id, this.newMessage)
+		.subscribe(
+	        success => {
+	        	this.newMessage = "";
+	            this.getMessages();
+	        },
+	        error => this.errorMessage = error
+      	);
 	}
 
 

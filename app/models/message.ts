@@ -3,5 +3,5 @@ export class Message {
     public fromId: string,
     public toId: string,
     public message: string,
-    public timestamp: string) { }
+    public timestamp: any) { }
 }

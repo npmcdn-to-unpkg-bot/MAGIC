@@ -1,0 +1,30 @@
+.magic-title-primary {
+  font-size:3em;
+}
+
+.magic-shift-div {
+	width: auto;
+	margin-left: 15%;
+}
+
+.magic-centered-div {
+	width: auto;
+	margin-left: 20%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.magic-text-centered {
+	margin-top: 20px;
+}
+
+.magic-wrapper {
+	max-height: 425px;
+}
+
+.icon-image {
+}
+
+.magic-text-input {
+	
+}

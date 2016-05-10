@@ -266,15 +266,21 @@ module.exports = function(app, passport, graph) {
 
         var id = req.user.authenticate.id;
         var query = {
-            'authenticate.id': {
-                $in : matches
-            }, matches: {}
+            "authenticate.id": {
+                    $in : matches
+            }
         };
-        query.matches[id] = {
-            $exists: true,
-            $eq: true
-        };
+        query["matches." + id] = {
+                $exists: true,
+                $eq: true
+            }
+        console.log(JSON.stringify(query));
         User.find(query, function (err, users) {
+            if (err) {
+                res.sendStatus(500);
+                return;
+            }
+            console.log(users);
             res.json(users.map(function (user) {
                 return {
                     id: user.authenticate.id,
@@ -311,7 +317,7 @@ module.exports = function(app, passport, graph) {
 
         newMessage.fromId = req.user.authenticate.id;
         //SECURITY: verify that this user is one of their matches
-        newMessage.toId = req.body.toId;
+        newMessage.toId = req.body.id;
         newMessage.message = req.body.message;
         newMessage.timestamp = new Date();
         newMessage.save(function(err) {
@@ -320,8 +326,7 @@ module.exports = function(app, passport, graph) {
                 return;
             }
 
-
-            res.sendStatus(200);
+            res.json({});
 
             // TODO: if successful and toId websocket is connected, send the message through websocket
         });
