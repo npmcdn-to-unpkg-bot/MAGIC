@@ -200,7 +200,7 @@ module.exports = function(app, passport, graph) {
                                 var userAttr = userData[matchSettingKey][k];
                                 for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
                                     if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
-                                        if(user.Attr.name != null){
+                                        if(userAttr.name != null){
                                             common.push(userAttr.name);
                                         }
                                         currScore += 1;
@@ -210,7 +210,7 @@ module.exports = function(app, passport, graph) {
                         } else { // not a list
                             if (userData[matchSettingKey]) {
                                 if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
-                                    if(user.Attr.name != null){
+                                    if(userAttr.name != null){
                                         common.push(userAttr.name);
                                     }
                                     currScore += 1;
