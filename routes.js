@@ -66,7 +66,6 @@ module.exports = function(app, passport, graph) {
             var user_music_object = data.music;
             var user_book_object = data.books;
             
-            console.log(user_likes_object.data)
             // find the current user and update their information
             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
                 // check basic user info exists
@@ -140,7 +139,7 @@ module.exports = function(app, passport, graph) {
     // =====================================
     // route for facebook authentication and login
     var scope_info = ['email','user_birthday','user_likes','user_photos','user_friends','user_location','user_tagged_places',
-                    'user_events','user_hometown','user_actions.books','user_actions.fitness','user_actions.music'];
+                    'user_events','user_hometown','user_actions.books','user_actions.music'];
     app.get('/auth/facebook', passport.authenticate('facebook', { scope: scope_info}));
 
     // handle the callback after facebook has authenticated the user
