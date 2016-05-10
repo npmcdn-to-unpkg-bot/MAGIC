@@ -78,7 +78,7 @@ module.exports = function(app, passport, graph) {
                 }
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
-                    
+                    user.settings.orientation = user.gender == "male" ? "Women" : "Men";
                 }
                 if (user_birthday !== undefined) {
                     user.birthday = user_birthday;
@@ -115,8 +115,6 @@ module.exports = function(app, passport, graph) {
                 if (user_book_object !== undefined) {
                     user.books = user_book_object.data;
                 }
-
-                res.json(user);
                 
                 res.json(user);
 
@@ -242,7 +240,8 @@ module.exports = function(app, passport, graph) {
                         gender: user.gender,
                         hometown: user.hometown,
                         photo: user.authenticate.photo,
-                        age : age
+                        age : age,
+                        score: currScore
                     };
 
                     res.json(prospect);
