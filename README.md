@@ -1,8 +1,7 @@
 Don't store db config in the git repo.
 Other security measures.
 Superlike?
-better css
-combine Match and User db
+Put common interest name list under the swipe options.
 
 The routes need to be finished in routes.js
 
