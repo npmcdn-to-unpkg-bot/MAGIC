@@ -145,6 +145,8 @@ module.exports = function(app, passport, graph) {
 
         req.user.matches[otherId] = decision;
 
+        req.user.markModified('matches');
+
         console.log(req.user.matches);
 
         req.user.save(function (err) {

@@ -13,11 +13,13 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        console.log('serialized user');
         done(null, user.authenticate.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
+        console.log('deserialized user');
         User.findOne({'authenticate.id' : id}, function(err, user) {
             done(err, user);
         });
