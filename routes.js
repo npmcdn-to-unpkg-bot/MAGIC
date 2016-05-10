@@ -155,7 +155,6 @@ module.exports = function(app, passport, graph) {
                 if(user.likes[i].id == user_id){
                     user.likes[i].accept = decision;
                 }
-
             }
 
             user.save(function (err) {
@@ -178,7 +177,7 @@ module.exports = function(app, passport, graph) {
         var userData = req.user;
         var matchSettings = userData.settings;
 
-        // Find other profiles in the user's location
+        // Find other profiles in the user's location that have not been liked
         var options = { 
             'location.id' : userData.location.id, 
             'authenticate.id' : { $ne : userData.authenticate.id }
@@ -237,6 +236,10 @@ module.exports = function(app, passport, graph) {
                         console.error(err);
                         return;
                     } 
+                    var ageMS = Date.now() - Date.UTC(parseInt(user.birthday.slice(6,10)), 
+                                                        parseInt(user.birthday.slice(0,2)) - 1, 
+                                                        parseInt(user.birthday.slice(3,5)));
+                    var age = Math.floor(ageMS/1000/60/60/24/365);
                     var prospect = {
                         id: user.authenticate.id,
                         email: user.authenticate.email,
@@ -244,8 +247,8 @@ module.exports = function(app, passport, graph) {
                         last_name: user.last_name,
                         gender: user.gender,
                         photo: user.authenticate.photo
+                        age : age
                     };
-                    console.log(prospect);
 
                     res.json(prospect);
                 });
