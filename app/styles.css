@@ -61,6 +61,12 @@ nav {
   width: 60%;
 }
 
+/* CSS for alignment */
+.magic-centered-row {
+  display: inline-block;
+  margin-left: 5%;
+}
+
 /* CSS for wrappers */
 .magic-wrapper {
   box-sizing: border-box;
@@ -197,8 +203,16 @@ nav {
   clear: both;
   visibility: hidden;
   line-height: 0;
-  
 }
+#cssmenu.logo{
+  font-size: 26px;
+  color: #FFF;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
 #cssmenu #menu-button {
   display: none;
 }

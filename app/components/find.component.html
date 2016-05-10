@@ -1,25 +1,26 @@
 <div class="container">
-    <div class="large-container">
-        <div class="page-header text-center">
-            <h1 class="title-secondary"> Meet New People</h1>
-        </div>
-    
+    <div class="large-container">  
         <div class="inner-container" *ngIf="prospect">
-            <h3 class="text-primary">Info</h3>
-            <img [src]="prospect.photo" height="200px" width="200px"/>
-            <p>
-                <span class="text-primary"> email: </span><span class="data-primary"> {{prospect.email}}</span><br>
-                <span class="text-primary"> Name: </span><span class="data-primary"> {{prospect.first_name}} {{prospect.last_name}}</span><br>
-                 <span class="text-primary"> Hometown: </span><span class="data-primary"> {{prospect.hometown.name}}</span><br>
-                  <span class="text-primary"> Age: </span><span class="data-primary"> {{prospect.age}}</span><br>
-                 <span class="text-primary"> Sex: </span><span class="data-primary"> {{prospect.gender}}</span><br>
-                 <span class="text-primary"> Common Interests: </span><span class="data-primary"> {{prospect.score}}</span><br>
-                <!--Add more once server is ready --> 
-               
-            </p>
-             <div class="button-bar">
-                 <button (click)="postDecision(true)" class="button like">like</button>
-                 <button (click)="postDecision(false)" class="button pass">pass</button>
+            <h3 class="magic-text-primary">Find A Match!</h3>
+            <div class="magic-wrapper magic-text-centered">
+                <img [src]="prospect.photo"/>
+                <div class="magic-centered-div">
+                    <div class="magic-centered-row">
+                     <span class="magic-text-primary"> Name: </span><span class="magic-text-normal"> {{prospect.first_name}}</span><br>
+                     <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospect.age}}</span><br>
+                    </div>
+                    <div class="magic-centered-row">
+                     <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown.name}}</span><br>
+                     <span class="magic-text-primary"> Sex: </span><span class="magic-text-normal"> {{prospect.gender}}</span><br>
+                    </div>
+                    <p>
+                     <span class="magic-text-primary"> Common Interests: </span><span class="magic-text-normal"> {{prospect.score}}</span><br>
+                    </p>
+                </div>
+                 <div class="button-bar">
+                     <button (click)="postDecision(false)" class="magic-btn-primary">Pass</button>
+                     <button (click)="postDecision(true)" class="magic-btn-primary">Like</button>
+                </div>
             </div>
         </div> 
         <div class="inner-container" *ngIf="errorMessage">
