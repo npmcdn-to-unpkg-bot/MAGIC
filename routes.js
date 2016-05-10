@@ -235,7 +235,7 @@ module.exports = function(app, passport, graph) {
                         last_name: user.last_name,
                         gender: user.gender,
                         hometown: user.hometown,
-                        photo: user.authenticate.photo
+                        photo: user.authenticate.photo,
                         age : age
                     };
 

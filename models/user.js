@@ -73,7 +73,7 @@ var userSchema = mongoose.Schema({
     }],
     settings         : Object,
     prospect         : Object,
-    likes            : Object
+    matches          : Object
 });
 
    
