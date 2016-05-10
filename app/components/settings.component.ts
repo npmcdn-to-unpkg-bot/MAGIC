@@ -17,9 +17,9 @@ export class SettingsComponent implements OnInit {
 
 	public settings: Settings;
 	public orientations = [
-		'Straight',
-		'Gay',
-		'Bisexual'
+		'Men',
+		'Women',
+		'Both'
 	];
 	public errorMessage: string;
 

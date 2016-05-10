@@ -78,6 +78,7 @@ module.exports = function(app, passport, graph) {
                 }
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
+                    user.settings.orientation = user.gender == "male" ? "Women" : "Men";
                 }
                 if (user_birthday !== undefined) {
                     user.birthday = user_birthday;
@@ -114,8 +115,6 @@ module.exports = function(app, passport, graph) {
                 if (user_book_object !== undefined) {
                     user.books = user_book_object.data;
                 }
-
-                res.json(user);
                 
                 res.json(user);
 
@@ -123,7 +122,7 @@ module.exports = function(app, passport, graph) {
                     if(err) {
                         console.log("ERROR!");
                         console.error('ERROR! Couldn\'t save profile information.');
-                    }
+                    }Z
                 });
             });
         });
