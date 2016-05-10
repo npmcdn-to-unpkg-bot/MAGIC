@@ -21,21 +21,16 @@ export class FindService {
         .catch(this.handleError);
   }
 
-  postDecision(id, decision){
+  postDecision(id, decision) : any {
    
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let test = JSON.stringify({id: id, decision: decision});
     console.log(test);
-    this.http.post(this._matchingUrl, test, {
+    return this.http.post(this._matchingUrl, test, {
         headers: headers
       }).map(this.extractData)
-      .catch(this.handleError)
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-
+      .catch(this.handleError);
   }
 
  
