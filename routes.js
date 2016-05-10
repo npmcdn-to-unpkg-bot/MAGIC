@@ -78,7 +78,7 @@ module.exports = function(app, passport, graph) {
                 }
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
-                    user.settings.orientation = user.gender == "male" ? "Women" : "Men";
+                    user.settings.orientation = (user.gender == "male") ? "Women" : "Men";
                 }
                 if (user_birthday !== undefined) {
                     user.birthday = user_birthday;
@@ -254,10 +254,10 @@ module.exports = function(app, passport, graph) {
 
     app.get('/matched', isLoggedIn, function (req, res) {
         var matches = [];
-        Object.keys(req.user.matches).forEach(function (match) {
+        Object.keys(req.user.matches).forEach(function (id) {
             //TODO VERIFY THAT THE OTHER HAS MATCHED WITH YOU IN A HELPER FUNCTION
-            if(req.user.matches[m]) {
-                matches.push(match.id);
+            if(req.user.matches[id]) {
+                matches.push(id);
             }
         })
         res.json(matches);

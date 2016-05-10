@@ -29,9 +29,9 @@ export class FindComponent {
   getProspect() {
    this._findService.getProspect()
     .subscribe(
-      prospect => this.prospect = prospect,
-      error =>  this.errorMessage = "No matches were found.");  
-
+        prospect => this.prospect = prospect,
+        error =>  this.errorMessage = "No matches were found."
+      );  
     }
     
 
@@ -39,10 +39,7 @@ export class FindComponent {
   	this._findService.postDecision(this.prospect.id, decision)
       .subscribe(
         success => {
-          var test = this;
-          setTimeout(function () {
-            test.getProspect();
-          }, 2000);
+            this.getProspect();
         },
         error => this.errorMessage = "Failed to save message."
       );
