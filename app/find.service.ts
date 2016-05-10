@@ -15,6 +15,7 @@ export class FindService {
   private _matchingUrl = 'match';
  
   getProspect (): Observable<Prospect> {
+    console.log("called");
     return this.http.get(this._prospectUrl)
     .map(this.extractData)
     .catch(this.handleError);

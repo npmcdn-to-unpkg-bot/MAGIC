@@ -17,7 +17,7 @@ type 'profile' will not be used. Will switch once server side is able to send in
 
 export class FindComponent {
 
-  constructor (private _profilesService: FindService) {}
+  constructor (private _findService: FindService) {}
 
   public prospect : Prospect;
   public errorMessage: string;
@@ -26,15 +26,17 @@ export class FindComponent {
 
 
   getProspect() {
-   this._profilesService.getProspect()
+   this._findService.getProspect()
+   /*
     .subscribe(
       prospect => this.prospect = prospect,
       error =>  this.errorMessage = <any>error);
+   */   
    
   }
 
   postDecision(decision){
-  	this._profilesService.postDecision(this.prospect.id,decision);
+  	this._findService.postDecision(this.prospect.id,decision);
     console.log(this.prospect.id);
   	this.getProspect();
 
