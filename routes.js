@@ -162,7 +162,7 @@ module.exports = function(app, passport, graph) {
 
     app.get('/matches', isLoggedIn, function (req, res) {
 
-
+        var common = [];
         console.log("called server side");
 
         
@@ -200,6 +200,9 @@ module.exports = function(app, passport, graph) {
                                 var userAttr = userData[matchSettingKey][k];
                                 for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
                                     if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
+                                        if(user.Attr.name != null){
+                                            common.push(userAttr.name);
+                                        }
                                         currScore += 1;
                                     }
                                 }
@@ -207,6 +210,9 @@ module.exports = function(app, passport, graph) {
                         } else { // not a list
                             if (userData[matchSettingKey]) {
                                 if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
+                                    if(user.Attr.name != null){
+                                        common.push(userAttr.name);
+                                    }
                                     currScore += 1;
                                 }
                             }
@@ -237,11 +243,13 @@ module.exports = function(app, passport, graph) {
                     var prospect = {
                         id: user.authenticate.id,
                         first_name: user.first_name,
-                        gender: user.gender,
                         hometown: user.hometown,
                         photo: user.authenticate.photo,
                         age : age,
-                        score: currScore
+                        score: currScore,
+                        common_likes: common
+
+
                     };
 
                     res.json(prospect);
