@@ -18,18 +18,18 @@
             <div class="magic-text-primary magic-text-centered"> Your Conversation With {{selection.first_name}}</div>
             <hr class="magic-hr">
             <div class="magic-wrapper" *ngIf="messages">
-                <div class="magic-wrapper" *ngFor="#message of messages">
+                <div class="magic-message-wrapper" *ngFor="#message of messages" style="float:{{message.fromId === selection.id ? 'left' : 'right'}};{{message.fromId === selection.id ? '' : 'background-color:#9932CC'}};">
                     <span class="magic-text-normal">
                         {{message.fromId === selection.id ? selection.first_name : 'You'}} ({{message.timestamp | date:'short'}}): {{message.message}}
                     </span>
                 </div>
             </div>
-            <div class="magic-wrapper">
+            <div class="magic-wrapper magic-send-row">
                 <div class="magic-left-container" id="magic-message-input">
-                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage">
+                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage" (keyup.enter)="postMessage()">
                 </div>
-                <div class="magic-right-container">
-                    <button (click)="postMessage()" class="magic-btn-primary">Send</button>
+                <div class="magic-right-container magic-send-button-container">
+                    <button (click)="postMessage()" class="magic-btn-primary magic-send-button">Send</button>
                 </div>
             </div>
         </div>

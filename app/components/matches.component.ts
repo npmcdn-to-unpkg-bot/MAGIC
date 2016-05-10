@@ -24,20 +24,22 @@ export class MatchesComponent {
 
 	ngOnInit() { 
 		this.getMatches();
-		setInterval(() => {
-			this.getMatches();
-		}, 5000);
-		setInterval(() => {
+	  	setInterval(() => {
 			if(this.selection) {
 				this.getMessages();
 			}
-		}, 1000);
+		}, 2000);
 	}
 
 	getMatches() {
 		this._matchesService.getMatches()
 		.subscribe(
-		  matches => this.matches = matches,
+		  matches => {
+		  	this.matches = matches;
+		  	setTimeout(() => {
+				this.getMatches();	
+		  	}, 2500);
+		  },
 		  error =>  this.errorMessage = <any>error);
 
 	}

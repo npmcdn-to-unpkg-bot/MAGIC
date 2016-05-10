@@ -27,7 +27,7 @@
 }
 
 .magic-text-input {
-	
+	height: 52px;
 }
 
 #magic-sidebar {
@@ -35,13 +35,42 @@
 }
 
 #magic-message-box {
-	width: 50%;
+	width: 50%;]
 }
 
 #magic-message-input {
+	margin-left: 2.5%;
 	width: 60%;
 }
 
 .magic-user-name {
 	overflow: visible;
+}
+
+.magic-message-wrapper {
+  box-sizing: border-box;
+  overflow: auto;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  width: 50%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+.magic-send-button-container {
+	width: 30%;
+	margin-left: 2.5%;
+}
+
+.magic-send-button {
+	width: 100%;
+}
+
+.magic-send-row {
+	margin-top: 0px;
+	margin-bottom: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
