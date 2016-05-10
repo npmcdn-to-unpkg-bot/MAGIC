@@ -139,32 +139,19 @@ module.exports = function(app, passport, graph) {
 
 
     app.post('/match', isLoggedIn, function (req, res) {
-    
-        console.log(req.body);
-        var user_id = req.body.id;
+        var otherId = req.body.id;
         var decision = req.body.decision;
-        console.log(req.user.authenticate.id)
 
-        Match.findOne({'user': req.user.authenticate.id}, function (err, user) {
+        req.user.likes[otherId] = decision;
 
-            for(var i = 0; i < user.likes.length; i++){
-                if(user.likes[i].id == user_id){
-                    user.likes[i].accept = decision;
-                }
-
+        req.user.save(function (err) {
+            if(err) {
+                console.log("ERROR!");
+                console.error('ERROR! Couldn\'t save profile information.');
             }
 
-            user.save(function (err) {
-                if(err) {
-                    console.log("ERROR!");
-                    console.error('ERROR! Couldn\'t save profile information.');
-                }
-            });
-
+            res.json({});
         });
-
-        
-        res.json({});
      });
 
 
@@ -180,7 +167,7 @@ module.exports = function(app, passport, graph) {
         // Find other profiles in the user's location
         var options = { 
             'location.id' : userData.location.id, 
-            'authenticate.id' : { $ne : userData.authenticate.id }
+            'authenticate.id' : { $ne : userData.authenticate.id, $nin: Object.keys(userData.likes)},
         };
         User.find(options, function (err, users) {
             if (err) {

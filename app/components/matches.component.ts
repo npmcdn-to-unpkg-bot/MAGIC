@@ -27,10 +27,21 @@ export class MatchesComponent {
 		.subscribe(
 		  matched => this.matched = matched,
 		  error =>  this.errorMessage = <any>error);
+
 	}
 
 	makeSelection(match : String) {
 		this.selection = match;
 
+
 	}
+
+
+
+	// getMessages(id : String) {
+	// 	this._matchesService.getMessages(id)
+	// 		.subscribe(
+	// 	  matched => this.matched = matched,
+	// 	  error =>  this.errorMessage = <any>error);
+	// }
 }

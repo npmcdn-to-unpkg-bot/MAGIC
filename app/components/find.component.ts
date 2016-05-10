@@ -33,6 +33,7 @@ export class FindComponent {
       error =>  this.errorMessage = "No matches were found.");  
 
     }
+    
 
   postDecision(decision){
   	this._findService.postDecision(this.prospect.id,decision);
