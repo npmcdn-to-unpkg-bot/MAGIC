@@ -154,13 +154,27 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/matches', isLoggedIn, function (req, res) {
-        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
+        Match.find({'authenticate.id': req.user.authenticate.id}, function (err, user) {
             res.json()
         });
     });
 
-    app.get('/messages', isLoggedIn, function (req, res) {
+    app.get('/messages/:id', isLoggedIn, function (req, res) {
+        var userId = req.user.authenticate.id;
+        var otherId = req.params.id;
+        Message.find({
+                fromId: userId,
+                toId: otherId
+        }, function (err, messages) {
 
+        });
+
+        Message.find({
+            fromId: otherId,
+            toId: userId
+        }, function (err, messages) {
+
+        });
     });
 
     app.post('/messages', isLoggedIn, function (req, res) {
