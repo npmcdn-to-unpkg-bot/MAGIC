@@ -8,14 +8,14 @@
             <h3 class="text-primary">Info</h3>
             <img [src]="profile.photo" height="200px" width="200px"/>
             <p>
-                <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
-                <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
+                <span class="text-primary"> email: </span><span class="data-primary"> {{prospect.email}}</span><br>
+                <span class="text-primary"> name: </span><span class="data-primary"> {{prospect.name}}</span><br>
                 <!--Add more once server is ready --> 
                
             </p>
              <div class="button-bar">
-                 <button (click)="postChoice(true)" class="button like">like</button>
-                 <button (click)="postChoice(false)" class="button pass">pass</button>
+                 <button (click)="postDecision(true)" class="button like">like</button>
+                 <button (click)="postDecision(false)" class="button pass">pass</button>
             </div>
         </div> 
     </div>

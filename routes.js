@@ -141,19 +141,33 @@ module.exports = function(app, passport, graph) {
     });
 
     app.post('/match', isLoggedIn, function (req, res) {
-        console.log("called");
+    
         console.log(req.body);
+        var user_id = req.body.id;
+        var decision = req.body.decision;
         console.log(req.user.authenticate.id)
+
+        Match.findOne({'user': req.user.authenticate.id}, function (err, user) {
+
+            for(var i = 0; i < user.likes.length; i++){
+                if(user.likes[i].id == user_id){
+                    user.likes[i].accept = decision;
+                }
+
+            }
+
+            user.save(function (err) {
+                if(err) {
+                    console.log("ERROR!");
+                    console.error('ERROR! Couldn\'t save profile information.');
+                }
+            });
+
+        });
+
+        
         res.json({});
-        // req.user 
-
-        // User.find()
-
-        // res.json()
-        // //name
-        // //picture
-        // //age range
-        // //shared interests
+        
     });
 
     app.get('/matches', isLoggedIn, function (req, res) {
