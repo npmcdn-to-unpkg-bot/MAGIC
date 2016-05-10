@@ -36,9 +36,10 @@ export class FindComponent {
     
 
   postDecision(decision){
-  	this._findService.postDecision(this.prospect.id,decision);
-    console.log(this.prospect.id);
-  	this.getProspect();
-
+  	this._findService.postDecision(this.prospect.id, decision)
+      .subscribe(
+        success => this.getProspect(),
+        error => this.errorMessage = "Failed to save message."
+      );
   }
 }
