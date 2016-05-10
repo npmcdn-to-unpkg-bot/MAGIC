@@ -234,9 +234,7 @@ module.exports = function(app, passport, graph) {
                     var age = Math.floor(ageMS/1000/60/60/24/365);
                     var prospect = {
                         id: user.authenticate.id,
-                        email: user.authenticate.email,
                         first_name: user.first_name,
-                        last_name: user.last_name,
                         gender: user.gender,
                         hometown: user.hometown,
                         photo: user.authenticate.photo,
@@ -254,8 +252,9 @@ module.exports = function(app, passport, graph) {
 
     app.get('/matched', isLoggedIn, function (req, res) {
         var matches = [];
-        req.user.matches.forEach(function (match) {
-            if(match.accept) {
+        Object.keys(req.user.matches).forEach(function (match) {
+            //TODO VERIFY THAT THE OTHER HAS MATCHED WITH YOU IN A HELPER FUNCTION
+            if(req.user.matches[m]) {
                 matches.push(match.id);
             }
         })
