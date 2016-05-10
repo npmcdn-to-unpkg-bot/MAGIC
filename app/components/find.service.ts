@@ -6,9 +6,6 @@ import {Prospect}        from '../models/prospect';
 @Injectable()
 export class FindService {
 
-  decision: boolean;
-  id: string;
-
   constructor (private http: Http) {}
   //call will be to a different server function
   private _prospectUrl = 'match';
@@ -22,11 +19,11 @@ export class FindService {
   postDecision(id, decision) : any {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let test = JSON.stringify({id: id, decision: decision});
-    console.log(test);
-    return this.http.post(this._prospectUrl, test, {
+    let body = JSON.stringify({id: id, decision: decision});
+    return this.http.post(this._prospectUrl, body, {
         headers: headers
-      }).map(this.extractData)
+      })
+      .map(this.extractData)
       .catch(this.handleError);
   }
 

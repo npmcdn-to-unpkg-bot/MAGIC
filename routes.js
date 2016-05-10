@@ -186,8 +186,8 @@ module.exports = function(app, passport, graph) {
             });
             
             for (var i = 0; i < potentialMatches.length; i+=1) {
-                var common = [];
                 var score = 0;
+                var common_likes = [];
                 var matchSettingsKeys = Object.keys(matchSettings);
 
                 for (var j = 0; j < matchSettingsKeys.length; j+=1) {
@@ -199,7 +199,7 @@ module.exports = function(app, passport, graph) {
                                 for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
                                     if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
                                         if(userAttr.name != null){
-                                            common.push(userAttr.name);
+                                            common_likes.push(userAttr.name);
                                         }
                                         score += 1;
                                     }
@@ -209,7 +209,7 @@ module.exports = function(app, passport, graph) {
                             if (userData[matchSettingKey]) {
                                 if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
                                     if(userData[matchSettingKey].name != null){
-                                        common.push(userData[matchSettingKey].name);
+                                        common_likes.push(userData[matchSettingKey].name);
                                     }
                                     score += 1;
                                 }
@@ -241,14 +241,14 @@ module.exports = function(app, passport, graph) {
                                             parseInt(user.birthday.slice(0,2)) - 1, 
                                             parseInt(user.birthday.slice(3,5)));
         var age = Math.floor(ageMS/1000/60/60/24/365);
-        var prospect = {
+        return {
             id: user.authenticate.id,
             first_name: user.first_name,
             hometown: user.hometown.name,
             photo: user.authenticate.photo,
             age : age,
             score: match.score,
-            common_likes: match.common
+            common_likes: match.common_likes
         };
     }
 
