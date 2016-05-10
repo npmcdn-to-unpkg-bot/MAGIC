@@ -235,12 +235,13 @@ module.exports = function(app, passport, graph) {
                     var prospect = {
                         id: user.authenticate.id,
                         first_name: user.first_name,
-                        gender: user.gender,
                         hometown: user.hometown,
                         photo: user.authenticate.photo,
                         age : age,
                         score: currScore,
+
                         likes: user.likes
+
 
                     };
 

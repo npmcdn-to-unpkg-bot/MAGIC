@@ -1,28 +1,34 @@
 <div class="container">
     <div class="large-container">  
         <div class="inner-container" *ngIf="prospect">
-            <h3 class="magic-text-primary">Find A Match!</h3>
             <div class="magic-wrapper magic-text-centered">
+                <h3 class="magic-title-primary">{{prospect.first_name}}</h3>
+                <hr class="magic-hr">
                 <img [src]="prospect.photo"/>
                 <div class="magic-centered-div">
                     <div class="magic-centered-row">
-                     <span class="magic-text-primary"> Name: </span><span class="magic-text-normal"> {{prospect.first_name}}</span><br>
-                     <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospect.age}}</span><br>
+                       <span class="magic-text-primary"> Matching Score: </span><span class="magic-text-normal"> {{prospect.score}}</span><br>
                     </div>
                     <div class="magic-centered-row">
-                     <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown.name}}</span><br>
-                     <span class="magic-text-primary"> Sex: </span><span class="magic-text-normal"> {{prospect.gender}}</span><br>
+                       <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospect.age}}</span><br>
                     </div>
-                    <p>
-                     <span class="magic-text-primary"> Common Interests: </span><span class="magic-text-normal"> {{prospect.score}}</span><br>
-                    </p>
+                    <div class="magic-centered-row">
+                       <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown.name}}</span><br>
+                    </div>
                 </div>
+                <hr class="magic-hr">
                  <div class="button-bar">
                      <button (click)="postDecision(false)" class="magic-btn-primary">Pass</button>
                      <button (click)="postDecision(true)" class="magic-btn-primary">Like</button>
                 </div>
             </div>
         </div> 
+
+        <div class="magic-wrapper" *ngIf="profile">
+            <div class="magic-text-primary magic-text-centered"> What you have in common with {{prospect.first_name}}:</div>
+            <div class="magic-wrapper" *ngFor="#item of profile.interests"><span class="magic-text-normal"> {{item.name}}</span></div>
+        </div>
+
         <div class="inner-container" *ngIf="errorMessage">
             {{errorMessage}}
         </div>

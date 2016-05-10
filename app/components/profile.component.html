@@ -13,7 +13,7 @@
     </div>  -->
 
     <div class="magic-wrapper" *ngIf="profile">
-        <h3 class="magic-text-primary magic-text-centered">{{profile.first_name}}'s Profile</h3>
+        <h3 class="magic-title-primary magic-text-centered">{{profile.first_name}}'s Profile</h3>
         <hr class="magic-hr">
         <div class="magic-left-container">
             <img class="magic-text-centered profile-image" [src]="profile.authenticate.photo"/>
@@ -32,23 +32,27 @@
         </div>
     </div>
 
+    <div class="magic-text-primary magic-text-centered"> User Likes:</div>
+    <hr class="magic-hr">
     <div class="magic-wrapper" *ngIf="profile">
-        <div class="magic-text-primary magic-text-centered"> User Likes:</div>
         <div class="magic-wrapper" *ngFor="#like of profile.likes"><span class="magic-text-normal"> {{like.name}}</span></div>
     </div>
 
+    <div class="magic-text-primary magic-text-centered"> Recent Events:</div>
+    <hr class="magic-hr">
     <div class="magic-wrapper" *ngIf="profile">
-        <div class="magic-text-primary magic-text-centered"> Recent Events:</div>
         <div class="magic-wrapper" *ngFor="#event of profile.events"><span class="magic-text-normal"> {{event.name}}</span></div>
     </div>
 
+    <div class="magic-text-primary magic-text-centered"> Favorite Books:</div>
+    <hr class="magic-hr">
     <div class="magic-wrapper" *ngIf="profile">
-        <div class="magic-text-primary magic-text-centered"> Favorite Books:</div>
         <div class="magic-wrapper" *ngFor="#book of profile.books"><span class="magic-text-normal"> {{book.name}}</span></div>
     </div>
 
+    <div class="magic-text-primary magic-text-centered"> Liked Music:</div>
+    <hr class="magic-hr">
     <div class="magic-wrapper" *ngIf="profile">
-        <div class="magic-text-primary magic-text-centered"> Liked Music:</div>
         <div class="magic-wrapper" *ngFor="#music of profile.music"><span class="magic-text-normal"> {{music.name}}</span></div>
     </div>
     <!-- <div class="magic-right-wrapper magic-text-centered" *ngIf="profile">
