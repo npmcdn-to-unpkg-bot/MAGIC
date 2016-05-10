@@ -6,6 +6,8 @@ var User = require('./models/user');
 var Message = require('./models/message');
 var Match = require('./models/match');
 
+var FastPriorityQueue = require("fastpriorityqueue");
+
 //map from socket ids to websockets
 var sockets;
 
@@ -72,7 +74,6 @@ module.exports = function(app, passport, graph) {
             var user_music_object = data.music;
             var user_book_object = data.books;
             
-            //console.log(user_likes_object.data)
             // find the current user and update their information
             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
                 // check basic user info exists
@@ -169,94 +170,107 @@ module.exports = function(app, passport, graph) {
 
         
         res.json({});
-
      });
 
 
     app.get('/matches', isLoggedIn, function (req, res) {
         console.log("calleddddddddddddddddddddddddd");
         
-        var matchSettings;
-        var userData;
-        var potentialMatches;
-
         var userData = req.user;
         var matchSettings = userData.settings;
 
         // Find other profiles in the user's location
-        User.find({ 
+        var options = { 
             'location.id' : userData.location.id, 
-            'authenticate.id' : { $not : userData.authenticate.id },
-        }, function (err, users) {
+            'authenticate.id' : { $ne : userData.authenticate.id }
+        };
+        User.find(options, function (err, users) {
             if (err) {
                 console.error(err);
                 return;
             }
-            potentialMatches = users;
-        });
+            var potentialMatches = users;
 
-        // Takes in an associative array of { userID: __, score: }
-        var matchRanking = new FastPriorityQueue(function (a, b) {
-            return a.score > b.score;
-        });
-        
-        for (var i = 0; i < potentialMatches.length; i+=1) {
-            var currScore = 0;
-            var matchSettingsKeys = Object.keys(matchSettings);
+            // Takes in an associative array of { userID: __, score: }
+            var matchRanking = new FastPriorityQueue(function (a, b) {
+                return a.score > b.score;
+            });
+            
+            for (var i = 0; i < potentialMatches.length; i+=1) {
+                var currScore = 0;
+                var matchSettingsKeys = Object.keys(matchSettings);
 
-
-            for (var j = 0; j < matchSettingsKeys.length; j+=1) {
-                if (matchSettings.matchSettingsKeys[j]) {
-
-                    if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
-                        if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
-                            score += 1;
-                        }
-                    } else { // list of attributes
-                        for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
-                            var userAttr = userData.matchSettingsKeys[j][k];
-                            for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
-                                if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
-                                    score += 1;
+                for (var j = 0; j < matchSettingsKeys.length; j+=1) {
+                    var matchSettingKey = matchSettingsKeys[j];
+                    if (matchSettingKey) {
+                        if (userData[matchSettingKey].length === undefined) { // i.e. not a list
+                            if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
+                                currScore += 1;
+                            }
+                        } else { // list of attributes
+                            for (var k = 0; k < userData[matchSettingKey].length; k+=1) { 
+                                var userAttr = userData[matchSettingKey][k];
+                                for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
+                                    if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
+                                        currScore += 1;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                var currMatch = {
+                    userID : potentialMatches[i].authenticate.id,
+                    score  : currScore
+                };
+
+                console.log('added');
+
+                matchRanking.add(currMatch);
             }
 
-            var currMatch = {
-                userID : potentialMatches[i].authenticate.id,
-                score  : currScore
-            };
+            var topMatch = matchRanking.poll();
+            User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
+                if (err) {
+                    console.error(err);
+                    return;
+                } 
+                var prospect = {
+                    id: user.authenticate.id,
+                    email: user.authenticate.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    gender: user.gender,
+                    photo: user.authenticate.photo
+                };
 
-            matchRanking.add(currMatch);
-        }
-
-        var topMatch = matchRanking.poll();
-        var prospect;
-        User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
-            if (err) {
-                console.error(err);
-                return;
-            } 
-            prospect = {
-                id: user.authenticate.id,
-                email: user.authenticate.email,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                gender: user.gender,
-                photo: user.authenticate.photo
-            };
+                res.json(prospect);
+            });
         });
-        console.log(prospect);
-        res.json(prospect);
     });
 
-    
+    app.get('/matched', isLoggedIn, function (req, res) {
+        Match.findOne({'user': req.user.authenticate.id}, function (err, data) {
+            var matches = [];
+            data.likes.forEach(function (match) {
+                if(match.accept) {
+                    matches.append(match.id);
+                }
+            })
+            res.json(matches);
+        });
+    });
 
-    app.get('/messages', isLoggedIn, function (req, res) {
+    app.get('/messages/:id', isLoggedIn, function (req, res) {
+        var userId = req.user.authenticate.id;
+        var otherId = req.params.id;
+        Message.find({
+                fromId: userId,
+                toId: otherId
+        }, function (err, messages) {
 
+        });
     });
 
     app.post('/messages', isLoggedIn, function (req, res) {
@@ -282,7 +296,7 @@ module.exports = function(app, passport, graph) {
     // =====================================
     // route for facebook authentication and login
     var scope_info = ['email','user_birthday','user_likes','user_photos','user_friends','user_location','user_tagged_places',
-                    'user_events','user_hometown','user_actions.books','user_actions.fitness','user_actions.music'];
+                    'user_events','user_hometown','user_actions.books','user_actions.music'];
     app.get('/auth/facebook', passport.authenticate('facebook', { scope: scope_info}));
 
     // handle the callback after facebook has authenticated the user

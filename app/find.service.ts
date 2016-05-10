@@ -10,7 +10,7 @@ export class FindService {
   id: string;
 
   constructor (private http: Http) {}
- //call will be to a different server function
+  //call will be to a different server function
   private _prospectUrl = 'matches';
   private _matchingUrl = 'match';
  

@@ -1,17 +1,21 @@
 <div class="container">
     <div class="large-container">
         <div class="page-header text-center">
-            <h1 class="title-secondary"> Mathches </h1>
+            <h1 class="title-secondary"> Matches </h1>
         </div>
     
-        <div class="form-container">
+        <div class="inner-container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="#match of matched">{{match}}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    Hello too
+                </div>
+            </div>
             <h3 class="text-primary">People you have matched with</h3>
-            
-            <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
-            <form>
-              
-             
-            </form>  
         </div> 
     </div>
 </div>

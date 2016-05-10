@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {HomeComponent} from './components/home.component';
 import {AuthComponent} from './components/auth.component';
@@ -6,7 +7,7 @@ import {AuthComponent} from './components/auth.component';
 @Component({
     selector: 'app',
     templateUrl: './app/app.component.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: []
 })
 
