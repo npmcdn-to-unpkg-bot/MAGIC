@@ -71,7 +71,8 @@ var userSchema = mongoose.Schema({
         id           : String,
         created_time : String
     }],
-    settings         : Object
+    settings         : Object,
+    prospect         : Object
 });
 
 // methods ======================
