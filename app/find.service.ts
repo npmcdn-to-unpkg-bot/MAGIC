@@ -11,10 +11,11 @@ export class FindService {
 
   constructor (private http: Http) {}
  //call will be to a different server function
-  private _prospectUrl = 'mathches';
+  private _prospectUrl = 'matches';
   private _matchingUrl = 'match';
  
   getProspect (): Observable<Prospect> {
+    console.log("called");
     return this.http.get(this._prospectUrl)
     .map(this.extractData)
     .catch(this.handleError);

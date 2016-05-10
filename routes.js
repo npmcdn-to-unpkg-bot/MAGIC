@@ -168,8 +168,11 @@ module.exports = function(app, passport, graph) {
 
         
         res.json({});
+     });
 
     app.get('/matches', isLoggedIn, function (req, res) {
+        console.log("called");
+        
         var matchSettings;
         var userData;
         var potentialMatches;
@@ -234,7 +237,24 @@ module.exports = function(app, passport, graph) {
             matchRanking.add(currMatch);
         }
 
-
+        var topMatch = matchRanking.poll();
+        var prospect;
+        User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
+            if (err) {
+                console.error(err);
+                return;
+            } 
+            prospect = {
+                id: user.authenticate.id,
+                email: user.authenticate.email,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                gender: user.gender,
+                photo: user.authenticate.photo
+            };
+        });
+        console.log(prospect);
+        res.json(prospect);
     });
 
     
