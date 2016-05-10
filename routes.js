@@ -142,7 +142,7 @@ module.exports = function(app, passport, graph) {
         var otherId = req.body.id;
         var decision = req.body.decision;
 
-        req.user.likes[otherId] = decision;
+        req.user.matches[otherId] = decision;
 
         req.user.save(function (err) {
             if(err) {
@@ -167,7 +167,7 @@ module.exports = function(app, passport, graph) {
         // Find other profiles in the user's location
         var options = { 
             'location.id' : userData.location.id, 
-            'authenticate.id' : { $ne : userData.authenticate.id, $nin: Object.keys(userData.likes)},
+            'authenticate.id' : { $ne : userData.authenticate.id, $nin: Object.keys(userData.matches)},
         };
         User.find(options, function (err, users) {
             if (err) {
@@ -244,7 +244,7 @@ module.exports = function(app, passport, graph) {
 
     app.get('/matched', isLoggedIn, function (req, res) {
         var matches = [];
-        req.user.likes.forEach(function (match) {
+        req.user.matches.forEach(function (match) {
             if(match.accept) {
                 matches.push(match.id);
             }
