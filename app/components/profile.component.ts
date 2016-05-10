@@ -23,8 +23,11 @@ export class ProfileComponent {
 
   getProfile() {
     this._profilesService.getProfile()
-    .subscribe(
-      profile => this.profile = profile,
+      .subscribe(
+      profile => {
+        this.profile = profile;
+        console.log(this.profile);
+      },
       error =>  this.errorMessage = <any>error);
   }
 }

@@ -1,27 +1,37 @@
-<div class="container">
-    <div class="large-container">
-        <!-- <div class="page-header text-center">
-            <h1 class="magic-title-secondary"> Profile Page</h1>
-        </div> -->
-    
-       <!--  <div class="inner-container" *ngIf="profile">
-            <h3 class="text-primary">Facebook</h3>
-            <img [src]="profile.photo" height="200px" width="200px"/>
+<div class="magic-large-container">
+    <!-- <div class="page-header text-center">
+        <h1 class="magic-title-secondary"> Profile Page</h1>
+    </div> -->
+
+   <!--  <div class="inner-container" *ngIf="profile">
+        <h3 class="text-primary">Facebook</h3>
+        <img [src]="profile.photo" height="200px" width="200px"/>
+        <p>
+            <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
+            <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
+        </p>
+    </div>  -->
+
+    <div class="magic-wrapper" *ngIf="profile">
+        <h3 class="magic-text-primary magic-text-centered">{{profile.first_name}}'s' Profile</h3>
+        <hr class="magic-hr">
+        <div class="magic-left-container">
+            <img class="magic-text-centered" [src]="profile.authenticate.photo"/>
+        </div>
+        <div class="magic-right-container">
             <p>
-                <span class="text-primary"> email: </span><span class="data-primary"> {{profile.email}}</span><br>
-                <span class="text-primary"> name: </span><span class="data-primary"> {{profile.name}}</span><br>
+                <span class="magic-text-primary"> email: </span><span class="magic-text-normal"> {{profile.email}}</span><br>
+                <span class="magic-text-primary"> name: </span><span class="magic-text-normal"> {{profile.authenticate.name}}</span><br>
             </p>
-        </div>  -->
-
-        <div class="magic-wrapper magic-text-centered" *ngIf="profile">
-            <h3 class="magic-text-primary">Your Profile</h3>
-            <hr class="magic-hr">
-
-            <img [src]="profile.photo" height="200px" width="200px"/>
-            <span class="text-primary"> email: </span><span class="magic-text-secondary"> {{profile.email}}</span><br>
-            <span class="text-primary"> name: </span><span class="magic-text-secondary"> {{profile.name}}</span><br>
-            <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
-            
-        </div>     
+        </div>
     </div>
+
+    <div class="magic-wrapper" *ngIf="profile">
+        <div class="magic-text-primary magic-text-centered"> Recent Events:</div>
+        <div class="magic-wrapper" *ngFor="#event of profile.events"><span class="magic-text-normal"> {{event.name}}</span></div>
+    </div>
+    <!-- <div class="magic-right-wrapper magic-text-centered" *ngIf="profile">
+        
+    </div> -->
+
 </div>

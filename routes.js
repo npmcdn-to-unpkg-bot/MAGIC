@@ -114,6 +114,8 @@ module.exports = function(app, passport, graph) {
                 if (user_book_object !== undefined) {
                     user.books = user_book_object.data;
                 }
+
+                res.json(user);
                 
                 res.json(user);
 
