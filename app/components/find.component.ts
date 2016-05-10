@@ -27,12 +27,9 @@ export class FindComponent {
 
   getProspect() {
    this._findService.getProspect()
-   /*
     .subscribe(
       prospect => this.prospect = prospect,
-      error =>  this.errorMessage = <any>error);
-   */   
-   
+      error =>  this.errorMessage = <any>error);  
   }
 
   postDecision(decision){

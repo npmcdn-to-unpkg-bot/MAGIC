@@ -178,18 +178,22 @@ module.exports = function(app, passport, graph) {
         
         var userData = req.user;
         var matchSettings = userData.settings;
-        var potentialMatches;
 
         // Find other profiles in the user's location
-        User.find({ 
+        var options = { 
             'location.id' : userData.location.id, 
-            'authenticate.id' : { $not : userData.authenticate.id },
-        }, function (err, users) {
+            'authenticate.id' : { $not : userData.authenticate.id }
+        };
+        console.log(options);
+        User.find(options, function (err, users) {
+            console.log('test');
+            console.log(users);
             if (err) {
                 console.error(err);
                 return;
             }
-            potentialMatches = users;
+            console.log('test2');
+            var potentialMatches = users;
 
             // Takes in an associative array of { userID: __, score: }
             var matchRanking = new FastPriorityQueue(function (a, b) {
@@ -198,6 +202,7 @@ module.exports = function(app, passport, graph) {
             
             for (var i = 0; i < potentialMatches.length; i+=1) {
                 var currScore = 0;
+                console.log(matchSettings);
                 var matchSettingsKeys = Object.keys(matchSettings);
 
 
@@ -228,14 +233,14 @@ module.exports = function(app, passport, graph) {
 
                 matchRanking.add(currMatch);
             }
+
             var topMatch = matchRanking.poll();
-            var prospect;
             User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
                 if (err) {
                     console.error(err);
                     return;
                 } 
-                prospect = {
+                var prospect = {
                     id: user.authenticate.id,
                     email: user.authenticate.email,
                     first_name: user.first_name,
@@ -243,9 +248,9 @@ module.exports = function(app, passport, graph) {
                     gender: user.gender,
                     photo: user.authenticate.photo
                 };
+
+                res.json(prospect);
             });
-            console.log(prospect);
-            res.json(prospect);
         });
     });
 
