@@ -141,16 +141,70 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/match', isLoggedIn, function (req, res) {
+        var matchSettings;
+        var userData;
+        var potentialMatches;
 
-        // req.user 
+        // Retrieve user data
+        User.findOne({'authenticate.id' : req.user.authenticate.id}, function (err, user) {
+            if (err) {
+                console.error(err);
+                return;
+            } 
+            userData = user;
+            matchSettings = user.settings;
+        });
 
-        // User.find()
+        // Find other profiles in the user's location
+        User.find({ 
+            'location.id' : userData.location.id, 
+            'authenticate.id' : { $not : userData.authenticate.id },
+        }, function (err, users) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            potentialMatches = users;
+        });
 
-        // res.json()
-        // //name
-        // //picture
-        // //age range
-        // //shared interests
+        // Takes in an associative array of { userID: __, score: }
+        var matchRanking = new FastPriorityQueue(function (a, b) {
+            return a.score > b.score;
+        });
+        
+        for (var i = 0; i < potentialMatches.length; i+=1) {
+            var currScore = 0;
+            var matchSettingsKeys = Object.keys(matchSettings);
+
+
+            for (var j = 0; j < matchSettingsKeys.length; j+=1) {
+                if (matchSettings.matchSettingsKeys[j]) {
+
+                    if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
+                        if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
+                            score += 1;
+                        }
+                    } else { // list of attributes
+                        for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
+                            var userAttr = userData.matchSettingsKeys[j][k];
+                            for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
+                                if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
+                                    score += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            var currMatch = {
+                userID : potentialMatches[i].authenticate.id,
+                score  : currScore
+            };
+
+            matchRanking.add(currMatch);
+        }
+
     });
 
     app.get('/matches', isLoggedIn, function (req, res) {
