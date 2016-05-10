@@ -25,8 +25,8 @@
                 </div>
             </div>
             <div class="magic-wrapper">
-                <div class="magic-left-container">
-                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage" id="magic-message-input">
+                <div class="magic-left-container" id="magic-message-input">
+                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage">
                 </div>
                 <div class="magic-right-container">
                     <button (click)="postMessage()" class="magic-btn-primary">Send</button>
