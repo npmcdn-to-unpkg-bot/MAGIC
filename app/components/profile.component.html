@@ -16,13 +16,19 @@
         <h3 class="magic-text-primary magic-text-centered">{{profile.first_name}}'s Profile</h3>
         <hr class="magic-hr">
         <div class="magic-left-container">
-            <img class="magic-text-centered" [src]="profile.authenticate.photo"/>
+            <img class="magic-text-centered profile-image" [src]="profile.authenticate.photo"/>
         </div>
         <div class="magic-right-container">
             <p>
-                <span class="magic-text-primary"> email: </span><span class="magic-text-normal"> {{profile.email}}</span><br>
-                <span class="magic-text-primary"> name: </span><span class="magic-text-normal"> {{profile.authenticate.name}}</span><br>
+                <span class="magic-text-primary magic-text-centered text-vertical-align"> email: </span><span class="magic-text-normal"> {{profile.email}}</span><br>
+                <span class="magic-text-primary magic-text-centered text-vertical-align"> name: </span><span class="magic-text-normal"> {{profile.authenticate.name}}</span><br>
             </p>
+        </div>
+        <div class="magic-right-container">
+               <p>
+                <span class="magic-text-primary magic-text-centered"> home town: </span><span class="magic-text-normal"> {{profile.hometown.name}}</span><br>
+                <span class="magic-text-primary magic-text-centered"> current location: </span><span class="magic-text-normal"> {{profile.location.name}}</span><br>
+            </p> 
         </div>
     </div>
 

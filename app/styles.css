@@ -37,6 +37,7 @@ nav {
 /* CSS for containers */
 .magic-inner-container {
 	width: 60%;
+  height: auto;
 	margin-top: 10%;
 	margin-left: 20%;
   word-wrap: break-word;
@@ -52,13 +53,23 @@ nav {
   display: inline-block;
   overflow: auto;
   width: 25%;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .magic-right-container {
   display: inline-block;
   overflow: auto;
-  margin-left: 2%;
-  width: 60%;
+  margin-left: 10%;
+  width: 25%;
+  vertical-align: middle;
+  text-align: left;
+}
+
+/* CSS for alignment */
+.magic-centered-row {
+  display: inline-block;
+  margin-left: 5%;
 }
 
 /* CSS for alignment */
@@ -149,6 +160,7 @@ nav {
 
 
 
+
 /* CSS for buttons */
 .magic-btn-primary {
   padding:15px;
@@ -190,6 +202,7 @@ nav {
   border: 0;
   list-style: none;
   line-height: 1;
+  vertical-align: bottom;
   display: block;
   position: relative;
   -webkit-box-sizing: border-box;
@@ -204,13 +217,14 @@ nav {
   visibility: hidden;
   line-height: 0;
 }
-#cssmenu.logo{
-  font-size: 26px;
+#cssmenu .logo{
+  font-size: 2.5em;
   color: #FFF;
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
+  text-shadow:#000 0px 1px 5px;
 }
 
 #cssmenu #menu-button {
@@ -243,7 +257,7 @@ nav {
 }
 #cssmenu > ul > li > a {
   padding: 16px 20px;
-  font-size: 14px;
+  font-size: 1.1em;
   color: #FFF;
   font-weight: bold;
   letter-spacing: 1px;
