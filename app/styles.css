@@ -190,6 +190,7 @@ nav {
   border: 0;
   list-style: none;
   line-height: 1;
+  vertical-align: bottom;
   display: block;
   position: relative;
   -webkit-box-sizing: border-box;
@@ -204,13 +205,14 @@ nav {
   visibility: hidden;
   line-height: 0;
 }
-#cssmenu.logo{
-  font-size: 26px;
+#cssmenu .logo{
+  font-size: 2.5em;
   color: #FFF;
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
+  text-shadow:#000 0px 1px 5px;
 }
 
 #cssmenu #menu-button {
@@ -243,7 +245,7 @@ nav {
 }
 #cssmenu > ul > li > a {
   padding: 16px 20px;
-  font-size: 14px;
+  font-size: 1.1em;
   color: #FFF;
   font-weight: bold;
   letter-spacing: 1px;
