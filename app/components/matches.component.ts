@@ -23,15 +23,16 @@ export class MatchesComponent {
 	public errorMessage: string;
 
 	ngOnInit() { 
-		this.getMatched(); 
+		this.getMatches(); 
 		setInterval(() => {
+			this.getMatches();
 			if(this.selection) {
 				this.getMessages();
 			}
 		}, 1000);
 	}
 
-	getMatched() {
+	getMatches() {
 		this._matchesService.getMatches()
 		.subscribe(
 		  matches => this.matches = matches,
