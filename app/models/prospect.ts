@@ -8,6 +8,7 @@ export class Prospect {
     public hometown:string,
     public photo:string,
     public age:string,
-    public score:string
+    public score:string,
+    public likes:string
     ) { }
 }

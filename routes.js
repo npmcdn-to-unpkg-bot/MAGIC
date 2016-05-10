@@ -239,7 +239,9 @@ module.exports = function(app, passport, graph) {
                         hometown: user.hometown,
                         photo: user.authenticate.photo,
                         age : age,
-                        score: currScore
+                        score: currScore,
+                        likes: user.likes
+
                     };
 
                     res.json(prospect);
