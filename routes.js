@@ -4,7 +4,6 @@ var path = require('path');
 
 var User = require('./models/user');
 var Message = require('./models/message');
-var Match = require('./models/match');
 
 var FastPriorityQueue = require("fastpriorityqueue");
 
@@ -31,17 +30,13 @@ module.exports = function(app, passport, graph) {
     });
 
     app.post('/settings/matching', isLoggedIn, function(req, res) {
-        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
-            user.settings = req.body;
-            // save the new settings information in the db
-            user.save(function (err) {
-                if(err) {
-                    console.log("ERROR!");
-                    console.error('ERROR! Couldn\'t save profile information.');
-                }
-            });
+        req.user.settings = req.body;
+        req.user.save(function (err) {
+            if(err) {
+                console.log("ERROR!");
+                console.error('ERROR! Couldn\'t save profile information.');
+            }
         });
-        res.json({});
     });
 
     // route for showing the profile page
@@ -250,15 +245,13 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/matched', isLoggedIn, function (req, res) {
-        Match.findOne({'user': req.user.authenticate.id}, function (err, data) {
-            var matches = [];
-            data.likes.forEach(function (match) {
-                if(match.accept) {
-                    matches.append(match.id);
-                }
-            })
-            res.json(matches);
-        });
+        var matches = [];
+        req.user.likes.forEach(function (match) {
+            if(match.accept) {
+                matches.push(match.id);
+            }
+        })
+        res.json(matches);
     });
 
     app.get('/messages/:id', isLoggedIn, function (req, res) {
@@ -267,8 +260,18 @@ module.exports = function(app, passport, graph) {
         Message.find({
                 fromId: userId,
                 toId: otherId
-        }, function (err, messages) {
-
+        }, function (err, toMessages) {
+            if (err)
+                res.sendStatus(500);
+            Message.find({
+                fromId: otherId,
+                toId: userId
+            }, function (err, fromMessages) {
+                if (err)
+                    res.sendStatus(500);
+                var messages = toMessages.concat(fromMessages);
+                res.json(messages);
+            })
         });
     });
 
