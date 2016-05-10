@@ -73,7 +73,7 @@ var userSchema = mongoose.Schema({
     }],
     settings         : Object,
     matches          : Object
-});
+}, { minimize: false });
 
    
 
