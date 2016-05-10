@@ -2,8 +2,8 @@
     <div class="">
         <h3 class="magic-title-primary magic-text-centered">Your Matches</h3>
         <hr class="magic-hr">
-        <div class="magic-left-container" id="magic-sidebar">
-            <div class="magic-wrapper" *ngIf="matches">
+        <div class="magic-left-container" id="magic-sidebar" *ngIf="matches">
+            <div class="magic-wrapper">
                 <div class="magic-wrapper" *ngFor="#match of matches" (click)="makeSelection(match)">
                     <div class="magic-left-container magic-icon-image">
                         <img [src]="match.photo" height="50px"/>
