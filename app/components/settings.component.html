@@ -9,6 +9,9 @@
             <p class="text-primary"> Pick how you want to match with people:</p>
             <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
             <form *ngIf="settings">
+              <select class="form-control" [(ngModel)]="settings.orientation">
+                <option *ngFor="#o of orientations" [value]="o">{{o}}</option>
+              </select>
               <input type="checkbox" [(ngModel)]="settings.likes"><span class="text-primary"> Likes </span><br>
               <input type="checkbox" [(ngModel)]="settings.friends"><span class="text-primary"> Friends </span><br>
               <input type="checkbox" [(ngModel)]="settings.location"><span class="text-primary"> Location </span><br>

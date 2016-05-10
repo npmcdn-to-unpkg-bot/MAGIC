@@ -1,3 +1,8 @@
+Don't store db config in the git repo.
+Other security measures.
+Superlike?
+better css
+
 The routes need to be finished in routes.js
 
 
