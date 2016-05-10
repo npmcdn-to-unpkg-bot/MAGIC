@@ -71,7 +71,7 @@ module.exports = function(app, passport, graph) {
             var user_music_object = data.music;
             var user_book_object = data.books;
             
-            console.log(user_likes_object.data)
+            //console.log(user_likes_object.data)
             // find the current user and update their information
             User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
                 // check basic user info exists
@@ -140,20 +140,39 @@ module.exports = function(app, passport, graph) {
         });
     });
 
-    app.get('/match', isLoggedIn, function (req, res) {
-        var matchSettings;
-        var userData;
-        var potentialMatches;
 
-        // Retrieve user data
-        User.findOne({'authenticate.id' : req.user.authenticate.id}, function (err, user) {
-            if (err) {
-                console.error(err);
-                return;
-            } 
-            userData = user;
-            matchSettings = user.settings;
+    app.post('/match', isLoggedIn, function (req, res) {
+    
+        console.log(req.body);
+        var user_id = req.body.id;
+        var decision = req.body.decision;
+        console.log(req.user.authenticate.id)
+
+        Match.findOne({'user': req.user.authenticate.id}, function (err, user) {
+
+            for(var i = 0; i < user.likes.length; i++){
+                if(user.likes[i].id == user_id){
+                    user.likes[i].accept = decision;
+                }
+
+            }
+
+            user.save(function (err) {
+                if(err) {
+                    console.log("ERROR!");
+                    console.error('ERROR! Couldn\'t save profile information.');
+                }
+            });
+
         });
+
+        
+        res.json({});
+
+    app.get('/matches', isLoggedIn, function (req, res) {
+        var userData = req.user;
+        var matchSettings = userData.settings;
+        var potentialMatches;
 
         // Find other profiles in the user's location
         User.find({ 
@@ -205,11 +224,15 @@ module.exports = function(app, passport, graph) {
             matchRanking.add(currMatch);
         }
 
-    });
-
-    app.get('/matches', isLoggedIn, function (req, res) {
-        Match.find({'authenticate.id': req.user.authenticate.id}, function (err, user) {
-            res.json()
+    app.get('/matched', isLoggedIn, function (req, res) {
+        Match.findOne({'user': req.user.authenticate.id}, function (err, data) {
+            var matches = [];
+            data.likes.forEach(function (match) {
+                if(match.accept) {
+                    matches.append(match.id);
+                }
+            })
+            res.json(matches);
         });
     });
 
@@ -219,13 +242,6 @@ module.exports = function(app, passport, graph) {
         Message.find({
                 fromId: userId,
                 toId: otherId
-        }, function (err, messages) {
-
-        });
-
-        Message.find({
-            fromId: otherId,
-            toId: userId
         }, function (err, messages) {
 
         });

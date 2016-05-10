@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 
 // define the schema for our user model
 var matchSchema = mongoose.Schema({
-    users: [{
+    user: String,
+    likes: [{
     	id: String,
     	accept: Boolean
     }]

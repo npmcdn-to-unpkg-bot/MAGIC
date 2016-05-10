@@ -1,29 +1,30 @@
 import {Injectable}     from 'angular2/core';
 import {Http, Response, Headers} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {Profile}        from './models/profile';
+import {Prospect}        from './models/prospect';
 
 @Injectable()
 export class FindService {
 
-  decision: string;
+  decision: boolean;
+  id: string;
 
   constructor (private http: Http) {}
- //call will be to a different server function
-  private _prospectUrl = 'profile';
+  //call will be to a different server function
+  private _prospectUrl = 'matches';
   private _matchingUrl = 'match';
  
-  getProspect (): Observable<Profile> {
+  getProspect (): Observable<Prospect> {
     return this.http.get(this._prospectUrl)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
-  postDecision(decision){
+  postDecision(id, decision){
    
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let test = JSON.stringify({decision: decision});
+    let test = JSON.stringify({id: id, decision: decision});
     console.log(test);
     this.http.post(this._matchingUrl, test, {
         headers: headers
