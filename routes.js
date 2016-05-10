@@ -24,10 +24,7 @@ module.exports = function(app, passport, graph) {
 
     // gets the users matching settings
     app.get('/settings/matching', isLoggedIn, function(req, res) {
-        console.log("setting called");
-        User.findOne({'authenticate.id': req.user.authenticate.id}, function (err, user) {
-            res.json(user.settings);
-        });
+        res.json(req.user.settings);
     });
 
     app.post('/settings/matching', isLoggedIn, function(req, res) {
@@ -78,6 +75,7 @@ module.exports = function(app, passport, graph) {
                 }
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
+                    //setting default orientation
                     user.settings.orientation = (user.gender == "male") ? "Women" : "Men";
                 }
                 if (user_birthday !== undefined) {
@@ -129,14 +127,14 @@ module.exports = function(app, passport, graph) {
     });
 
     //testing getting all profiles
-    app.get('/profiles', isLoggedIn, function (req, res) {
-        User.find({}, function (err, users) {
-            //error checking?
-            res.json(users.map(function (user) {
-                return user.authenticate;
-            }));
-        });
-    });
+    // app.get('/profiles', isLoggedIn, function (req, res) {
+    //     User.find({}, function (err, users) {
+    //         //error checking?
+    //         res.json(users.map(function (user) {
+    //             return user.authenticate;
+    //         }));
+    //     });
+    // });
 
 
     app.post('/match', isLoggedIn, function (req, res) {
@@ -160,7 +158,7 @@ module.exports = function(app, passport, graph) {
      });
 
 
-    app.get('/matches', isLoggedIn, function (req, res) {
+    app.get('/match', isLoggedIn, function (req, res) {
 
         var common = [];
         console.log("called server side");
@@ -210,8 +208,8 @@ module.exports = function(app, passport, graph) {
                         } else { // not a list
                             if (userData[matchSettingKey]) {
                                 if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
-                                    if(userAttr.name != null){
-                                        common.push(userAttr.name);
+                                    if(userData[matchSettingKey].name != null){
+                                        common.push(userData[matchSettingKey].name);
                                     }
                                     currScore += 1;
                                 }
@@ -243,32 +241,48 @@ module.exports = function(app, passport, graph) {
                     var prospect = {
                         id: user.authenticate.id,
                         first_name: user.first_name,
-                        hometown: user.hometown,
+                        hometown: user.hometown.name,
                         photo: user.authenticate.photo,
                         age : age,
                         score: currScore,
                         common_likes: common
-
-
                     };
 
                     res.json(prospect);
                 });
             } else {
-                res.sendStatus(404);
+                res.json(false);
             }
         });
     });
 
-    app.get('/matched', isLoggedIn, function (req, res) {
-        var matches = [];
-        Object.keys(req.user.matches).forEach(function (id) {
-            //TODO VERIFY THAT THE OTHER HAS MATCHED WITH YOU IN A HELPER FUNCTION
-            if(req.user.matches[id]) {
-                matches.push(id);
-            }
-        })
-        res.json(matches);
+    app.get('/matches', isLoggedIn, function (req, res) {
+
+        var matches = Object.keys(req.user.matches).filter(function (otherId) {
+            return req.user.matches[otherId];
+        });
+
+        console.log(matches);
+
+        var id = req.user.authenticate.id;
+        var query = {
+            'authenticate.id': {
+                $in : matches
+            }, matches: {}
+        };
+        query.matches[id] = {
+            $exists: true,
+            $eq: true
+        };
+        User.find(query, function (err, users) {
+            res.json(users.map(function (user) {
+                return {
+                    id: user.authenticate.id,
+                    first_name: user.first_name,
+                    photo: user.authenticate.photo
+                };
+            }));
+        });
     });
 
     app.get('/messages/:id', isLoggedIn, function (req, res) {
@@ -301,8 +315,11 @@ module.exports = function(app, passport, graph) {
         newMessage.message = req.body.message;
         newMessage.timestamp = new Date();
         newMessage.save(function(err) {
-            if (err)
+            if (err) {
                 res.sendStatus(500);
+                return;
+            }
+
 
             res.sendStatus(200);
 
@@ -332,6 +349,7 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/*', function(req, res) {
+        console.log('wutface');
         res.sendFile(__dirname + "/index.html"); // load the index.ejs file
     });
 };

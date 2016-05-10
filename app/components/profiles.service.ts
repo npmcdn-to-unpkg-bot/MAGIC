@@ -1,7 +1,7 @@
 import {Injectable}     from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {Profile}        from './models/profile';
+import {Profile}        from '../models/profile';
 
 @Injectable()
 export class ProfilesService {

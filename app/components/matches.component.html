@@ -8,17 +8,19 @@
             <div class="row">
                 <div class="col-sm-4">
                     <ul class="list-group">
-                        <li class="list-group-item" *ngFor="#id of matched" (click)="makeSelection(id)">{{id}}</li>
+                        <li class="list-group-item" *ngFor="#match of matched" (click)="makeSelection(match.id)">{{match.first_name}}</li>
                     </ul>
                 </div>
-                <div class="col-sm-8" *>
+                <div class="col-sm-8">
                     
                 </div>
             </div>
-            <h3 class="text-primary">People you have matched with</h3>
         </div> 
         <div class="inner-container" *ngIf="errorMessage">
-            {{errorMessage}}
+            <div class="magic-wrapper magic-text-centered">
+               <span class="magic-text-normal">{{errorMessage}}</span>
+            </div>
+
         </div>
     </div>
 </div>

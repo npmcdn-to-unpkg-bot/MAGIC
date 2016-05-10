@@ -1,7 +1,7 @@
 import {Injectable}     from 'angular2/core';
 import {Http, Response, Headers} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {Prospect}        from './models/prospect';
+import {Prospect}        from '../models/prospect';
 
 @Injectable()
 export class FindService {
@@ -11,8 +11,7 @@ export class FindService {
 
   constructor (private http: Http) {}
   //call will be to a different server function
-  private _prospectUrl = 'matches';
-  private _matchingUrl = 'match';
+  private _prospectUrl = 'match';
  
   getProspect (): Observable<Prospect> {
     console.log("called");
@@ -27,7 +26,7 @@ export class FindService {
     headers.append('Content-Type', 'application/json');
     let test = JSON.stringify({id: id, decision: decision});
     console.log(test);
-    return this.http.post(this._matchingUrl, test, {
+    return this.http.post(this._prospectUrl, test, {
         headers: headers
       }).map(this.extractData)
       .catch(this.handleError);
@@ -39,7 +38,7 @@ export class FindService {
       throw new Error('Bad response status: ' + res.status);
     }
     let body = res.json();
-    return body || [];
+    return body;
   }
 
   private handleError (error: any) {

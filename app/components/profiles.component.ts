@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Profile} from '../models/profile';
-import {ProfilesService} from '../profiles.service';
+import {ProfilesService} from './profiles.service';
 import {OnInit} from 'angular2/core';
 import {CAROUSEL_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 

@@ -13,7 +13,7 @@
                        <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospect.age}}</span><br>
                     </div>
                     <div class="magic-centered-row">
-                       <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown.name}}</span><br>
+                       <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown}}</span><br>
                     </div>
                 </div>
                 <hr class="magic-hr">
@@ -24,13 +24,15 @@
             </div>
         </div> 
 
-        <div class="magic-wrapper" *ngIf="profile">
+        <div class="magic-wrapper" *ngIf="prospect">
             <div class="magic-text-primary magic-text-centered"> What you have in common with {{prospect.first_name}}:</div>
-            <div class="magic-wrapper" *ngFor="#item of profile.interests"><span class="magic-text-normal"> {{item.name}}</span></div>
+            <div class="magic-wrapper" *ngFor="#item of prospect.common_likes"><span class="magic-text-normal"> {{item}}</span></div>
         </div>
 
-        <div class="inner-container" *ngIf="errorMessage">
-            {{errorMessage}}
+        <div class="inner-container" *ngIf="!prospect">
+            <div class="magic-wrapper magic-text-centered">
+               <span class="magic-text-normal"> No new matches could be found. </span>
+            </div>
         </div>
     </div>
 </div>

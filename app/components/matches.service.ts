@@ -1,18 +1,18 @@
 import {Injectable}     from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {Profile}        from './models/profile';
+import {Match}          from '../models/match';
 
 @Injectable()
 export class MatchesService {
 
   constructor (private http: Http) {}
 
-  private _matchedUrl = 'matched';
+  private _matchesUrl = 'matches';
   private _profilesUrl = 'profiles';  // URL to web api
 
-  getMatched (): Observable<[String]> {
-    return this.http.get(this._matchedUrl)
+  getMatches (): Observable<[Match]> {
+    return this.http.get(this._matchesUrl)
     .map(this.extractData)
     .catch(this.handleError);
   }

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {FindService} from '../find.service';
+import {FindService} from './find.service';
 import {OnInit} from 'angular2/core';
 import {Prospect} from '../models/prospect';
 
@@ -29,8 +29,11 @@ export class FindComponent {
   getProspect() {
    this._findService.getProspect()
     .subscribe(
-        prospect => this.prospect = prospect,
-        error =>  this.errorMessage = "No matches were found."
+        prospect => {
+          this.prospect = prospect;
+          console.log(prospect);
+        },
+        error =>  this.errorMessage = error
       );  
     }
     
@@ -41,7 +44,7 @@ export class FindComponent {
         success => {
             this.getProspect();
         },
-        error => this.errorMessage = "Failed to save message."
+        error => this.errorMessage = error
       );
   }
 }

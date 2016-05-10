@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {MatchesService} from '../matches.service';
+import {MatchesService} from './matches.service';
 import {OnInit} from 'angular2/core';
-import {Profile} from '../models/profile';
+import {Match} from '../models/match';
 import {Message} from '../models/message';
 
 @Component({
@@ -16,7 +16,7 @@ import {Message} from '../models/message';
 export class MatchesComponent {
 	constructor (private _matchesService: MatchesService) {}
 
-	public matched : [String];
+	public matches : [Match];
 	public selection : String;
 	public messages : [Message];
 	public errorMessage: string;
@@ -24,9 +24,9 @@ export class MatchesComponent {
 	ngOnInit() { this.getMatched(); }
 
 	getMatched() {
-		this._matchesService.getMatched()
+		this._matchesService.getMatches()
 		.subscribe(
-		  matched => this.matched = matched,
+		  matches => this.matches = matches,
 		  error =>  this.errorMessage = <any>error);
 
 	}
