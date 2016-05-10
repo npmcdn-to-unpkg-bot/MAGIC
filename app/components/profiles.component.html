@@ -6,4 +6,7 @@
 			<p>{{profile.email}}</p>
 		</div>
 	</slide>
+	<div class="inner-container" *ngIf="errorMessage">
+            {{errorMessage}}
+    </div>
 </carousel>
