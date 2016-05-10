@@ -13,15 +13,13 @@ export class FindService {
   //call will be to a different server function
   private _prospectUrl = 'match';
  
-  getProspect (): Observable<Prospect> {
-    console.log("called");
+  getProspects (): Observable<[Prospect]> {
     return this.http.get(this._prospectUrl)
         .map(this.extractData)
         .catch(this.handleError);
   }
 
   postDecision(id, decision) : any {
-   
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let test = JSON.stringify({id: id, decision: decision});

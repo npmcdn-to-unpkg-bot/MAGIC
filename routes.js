@@ -162,10 +162,6 @@ module.exports = function(app, passport, graph) {
 
 
     app.get('/match', isLoggedIn, function (req, res) {
-
-        var common = [];
-        console.log("called server side");
-
         var userData = req.user;
         var matchSettings = userData.settings;
 
@@ -190,7 +186,8 @@ module.exports = function(app, passport, graph) {
             });
             
             for (var i = 0; i < potentialMatches.length; i+=1) {
-                var currScore = 0;
+                var common = [];
+                var score = 0;
                 var matchSettingsKeys = Object.keys(matchSettings);
 
                 for (var j = 0; j < matchSettingsKeys.length; j+=1) {
@@ -204,7 +201,7 @@ module.exports = function(app, passport, graph) {
                                         if(userAttr.name != null){
                                             common.push(userAttr.name);
                                         }
-                                        currScore += 1;
+                                        score += 1;
                                     }
                                 }
                             }
@@ -214,7 +211,7 @@ module.exports = function(app, passport, graph) {
                                     if(userData[matchSettingKey].name != null){
                                         common.push(userData[matchSettingKey].name);
                                     }
-                                    currScore += 1;
+                                    score += 1;
                                 }
                             }
                         }
@@ -222,40 +219,38 @@ module.exports = function(app, passport, graph) {
                 }
 
                 var currMatch = {
-                    userID : potentialMatches[i].authenticate.id,
-                    score  : currScore
+                    user : potentialMatches[i],
+                    score  : score,
+                    common_likes : common_likes
                 };
 
                 matchRanking.add(currMatch);
             }
-            if (matchRanking.size > 0) {
-                var topMatch = matchRanking.poll();
-                User.findOne({'authenticate.id' : topMatch.userID}, function (err, user) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    } 
-                    var ageMS = Date.now() - Date.UTC(parseInt(user.birthday.slice(6,10)), 
-                                                        parseInt(user.birthday.slice(0,2)) - 1, 
-                                                        parseInt(user.birthday.slice(3,5)));
-                    var age = Math.floor(ageMS/1000/60/60/24/365);
-                    var prospect = {
-                        id: user.authenticate.id,
-                        first_name: user.first_name,
-                        hometown: user.hometown.name,
-                        photo: user.authenticate.photo,
-                        age : age,
-                        score: currScore,
-                        common_likes: common
-                    };
-
-                    res.json(prospect);
-                });
-            } else {
-                res.json(false);
+            var prospects = [];
+            while(!matchRanking.isEmpty()) {
+                prospects.push(matchToProspect(matchRanking.poll()));
             }
+            res.json(prospects);
         });
     });
+
+    function matchToProspect(match) {
+        var user = match.user;
+
+        var ageMS = Date.now() - Date.UTC(parseInt(user.birthday.slice(6,10)), 
+                                            parseInt(user.birthday.slice(0,2)) - 1, 
+                                            parseInt(user.birthday.slice(3,5)));
+        var age = Math.floor(ageMS/1000/60/60/24/365);
+        var prospect = {
+            id: user.authenticate.id,
+            first_name: user.first_name,
+            hometown: user.hometown.name,
+            photo: user.authenticate.photo,
+            age : age,
+            score: match.score,
+            common_likes: match.common
+        };
+    }
 
     app.get('/matches', isLoggedIn, function (req, res) {
 

@@ -26,7 +26,6 @@ export class ProfileComponent {
       .subscribe(
       profile => {
         this.profile = profile;
-        console.log(this.profile);
       },
       error =>  this.errorMessage = <any>error);
   }

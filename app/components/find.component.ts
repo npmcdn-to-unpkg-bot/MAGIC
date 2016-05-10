@@ -20,29 +20,29 @@ export class FindComponent {
 
   constructor (private _findService: FindService) {}
 
-  public prospect : Prospect;
+  public prospects : [Prospect];
   public errorMessage: string;
 
-  ngOnInit() { this.getProspect(); }
+  ngOnInit() { this.getProspects(); }
 
-
-  getProspect() {
-   this._findService.getProspect()
+  getProspects() {
+   this._findService.getProspects()
     .subscribe(
-        prospect => {
-          this.prospect = prospect;
-          console.log(prospect);
+        prospects => {
+          this.prospects = prospects;
         },
         error =>  this.errorMessage = error
       );  
     }
     
 
-  postDecision(decision){
-  	this._findService.postDecision(this.prospect.id, decision)
+  postDecision(decision) {
+  	this._findService.postDecision(this.prospects[0].id, decision)
       .subscribe(
         success => {
-            this.getProspect();
+          this.prospects.shift();
+          if(this.prospects.length === 0)
+              this.getProspects();
         },
         error => this.errorMessage = error
       );

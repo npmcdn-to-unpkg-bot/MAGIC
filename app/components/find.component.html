@@ -1,19 +1,19 @@
 <div class="container">
     <div class="large-container">  
-        <div class="inner-container" *ngIf="prospect">
+        <div class="inner-container" *ngIf="prospects && prospects[0]">
             <div class="magic-wrapper magic-text-centered">
-                <h3 class="magic-title-primary">{{prospect.first_name}}</h3>
+                <h3 class="magic-title-primary">{{prospects[0].first_name}}</h3>
                 <hr class="magic-hr">
-                <img [src]="prospect.photo"/>
+                <img [src]="prospects[0].photo"/>
                 <div class="magic-centered-div">
                     <div class="magic-centered-row">
-                       <span class="magic-text-primary"> Matching Score: </span><span class="magic-text-normal"> {{prospect.score}}</span><br>
+                       <span class="magic-text-primary"> Matching Score: </span><span class="magic-text-normal"> {{prospects[0].score}}</span><br>
                     </div>
                     <div class="magic-centered-row">
-                       <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospect.age}}</span><br>
+                       <span class="magic-text-primary"> Age: </span><span class="magic-text-normal"> {{prospects[0].age}}</span><br>
                     </div>
                     <div class="magic-centered-row">
-                       <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospect.hometown}}</span><br>
+                       <span class="magic-text-primary"> Hometown: </span><span class="magic-text-normal"> {{prospects[0].hometown}}</span><br>
                     </div>
                 </div>
                 <hr class="magic-hr">
@@ -24,12 +24,12 @@
             </div>
         </div> 
 
-        <div class="magic-wrapper" *ngIf="prospect">
-            <div class="magic-text-primary magic-text-centered"> What you have in common with {{prospect.first_name}}:</div>
-            <div class="magic-wrapper" *ngFor="#item of prospect.common_likes"><span class="magic-text-normal"> {{item}}</span></div>
+        <div class="magic-wrapper" *ngIf="prospects && prospects[0]">
+            <div class="magic-text-primary magic-text-centered"> What you have in common with {{prospects[0].first_name}}:</div>
+            <div class="magic-wrapper" *ngFor="#item of prospects[0].common_likes"><span class="magic-text-normal"> {{item}}</span></div>
         </div>
 
-        <div class="inner-container" *ngIf="!prospect">
+        <div class="inner-container" *ngIf="!(prospects && prospects[0])">
             <div class="magic-wrapper magic-text-centered">
                <span class="magic-text-normal"> No new matches could be found. </span>
             </div>
