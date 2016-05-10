@@ -9,6 +9,7 @@ import {Message} from '../models/message';
 @Component({
   selector: 'matches',
   templateUrl: './app/components/matches.component.html',
+  styleUrls: ['./app/css/matches.css'],
   providers: [MatchesService]
 })
 

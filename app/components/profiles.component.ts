@@ -7,6 +7,7 @@ import {CAROUSEL_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 @Component({
     selector: 'profiles',
     templateUrl: './app/components/profiles.component.html',
+    styleUrls: ['./app/css/profiles.css'],
     directives: [CAROUSEL_DIRECTIVES],
     providers: [
     	ProfilesService

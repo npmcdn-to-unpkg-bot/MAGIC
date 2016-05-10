@@ -12,6 +12,7 @@ type 'profile' will not be used. Will switch once server side is able to send in
 @Component({
   selector: 'find',
   templateUrl: './app/components/find.component.html',
+  styleUrls: ['./app/css/find.css'],
   providers: [FindService]
 })
 

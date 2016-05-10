@@ -7,6 +7,7 @@ import {Settings}       from '../models/settings';
 @Component({
   selector: 'settings',
   templateUrl: './app/components/settings.component.html',
+  styleUrls: ['./app/css/settings.css'],
   directives: [CORE_DIRECTIVES],
   providers: [SettingsService]
 })

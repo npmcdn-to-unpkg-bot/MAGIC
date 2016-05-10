@@ -1,0 +1,23 @@
+.magic-centered-div {
+	width: auto;
+	margin-left: 5%;
+}
+
+.magic-centered-row {
+	display: inline-block;
+	margin-left: 10%;
+}
+
+.magic-btn-primary {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.magic-select {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
