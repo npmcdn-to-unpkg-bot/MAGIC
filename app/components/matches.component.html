@@ -2,11 +2,11 @@
     <div class="">
         <h3 class="magic-title-primary magic-text-centered">Your Matches</h3>
         <hr class="magic-hr">
-        <div class="magic-left-container">
+        <div class="magic-left-container" id="magic-sidebar">
             <div class="magic-wrapper" *ngIf="matches">
                 <div class="magic-wrapper" *ngFor="#match of matches" (click)="makeSelection(match)">
-                    <div class="magic-left-container">
-                        <img class="icon-image" [src]="match.photo" height="50px"/>
+                    <div class="magic-left-container magic-icon-image">
+                        <img [src]="match.photo" height="50px"/>
                     </div>
                     <div class="magic-right-container">
                         <span class="magic-text-normal">{{match.first_name}}</span>
@@ -14,19 +14,19 @@
                 </div>
             </div>
         </div>
-        <div class="magic-right-container" *ngIf="selection">
+        <div class="magic-right-container" id="magic-message-box" *ngIf="selection">
             <div class="magic-text-primary magic-text-centered"> Your Conversation With {{selection.first_name}}</div>
             <hr class="magic-hr">
             <div class="magic-wrapper" *ngIf="messages">
                 <div class="magic-wrapper" *ngFor="#message of messages">
                     <span class="magic-text-normal">
-                        {{message.fromId === selection.id ? selection.first_name : 'You'}} {{message.timestamp | date:mediumTime}}: {{message.message}}
+                        {{message.fromId === selection.id ? selection.first_name : 'You'}} ({{message.timestamp | date:'short'}}): {{message.message}}
                     </span>
                 </div>
             </div>
             <div class="magic-wrapper">
                 <div class="magic-left-container">
-                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage">
+                    <input class="form-control magic-text-input" type="text" [(ngModel)]="newMessage" id="magic-message-input">
                 </div>
                 <div class="magic-right-container">
                     <button (click)="postMessage()" class="magic-btn-primary">Send</button>

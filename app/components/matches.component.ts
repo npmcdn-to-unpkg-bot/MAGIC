@@ -22,7 +22,14 @@ export class MatchesComponent {
 	public newMessage: string;
 	public errorMessage: string;
 
-	ngOnInit() { this.getMatched(); }
+	ngOnInit() { 
+		this.getMatched(); 
+		setInterval(() => {
+			if(this.selection) {
+				this.getMessages();
+			}
+		}, 1000);
+	}
 
 	getMatched() {
 		this._matchesService.getMatches()
@@ -41,7 +48,11 @@ export class MatchesComponent {
 		this._matchesService.getMessages(this.selection.id)
 		.subscribe(
 		  messages => {
-		  	this.messages = messages.map(message => {
+		  	this.messages = messages
+		  	.sort(function (a, b) : number {
+		  		return a.timestamp.localeCompare(b.timestamp);
+		  	})
+		  	.map(message => {
 		  		return new Message(
 		  			message.fromId,
 		  			message.toId,

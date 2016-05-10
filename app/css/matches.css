@@ -22,9 +22,22 @@
 	max-height: 425px;
 }
 
-.icon-image {
+.magic-icon-image {
+	text-align: left;
 }
 
 .magic-text-input {
 	
+}
+
+#magic-sidebar {
+	vertical-align: top;
+}
+
+#magic-message-box {
+	width: 50%;
+}
+
+#magic-message-input {
+	width: 60%;
 }
