@@ -72,6 +72,12 @@ nav {
   margin-left: 5%;
 }
 
+/* CSS for alignment */
+.magic-centered-row {
+  display: inline-block;
+  margin-left: 5%;
+}
+
 /* CSS for wrappers */
 .magic-wrapper {
   box-sizing: border-box;
