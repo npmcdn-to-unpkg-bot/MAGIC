@@ -29,11 +29,11 @@ export class FindComponent {
     
    
    this._findService.getProspect()
-   /*
+   
     .subscribe(
       prospect => this.prospect = prospect,
       error =>  this.errorMessage = <any>error);
-   */   
+     
    
   }
 
