@@ -18,5 +18,8 @@
                  <button (click)="postDecision(false)" class="button pass">pass</button>
             </div>
         </div> 
+        <div class="inner-container" *ngIf="errorMessage">
+            {{errorMessage}}
+        </div>
     </div>
 </div>
