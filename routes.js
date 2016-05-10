@@ -181,7 +181,7 @@ module.exports = function(app, passport, graph) {
         // Find other profiles in the user's location
         var options = { 
             'location.id' : userData.location.id, 
-            'authenticate.id' : { $not : userData.authenticate.id }
+            'authenticate.id' : { $ne : userData.authenticate.id }
         };
         console.log(options);
         User.find(options, function (err, users) {
