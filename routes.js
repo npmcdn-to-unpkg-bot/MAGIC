@@ -168,7 +168,9 @@ module.exports = function(app, passport, graph) {
 
         
         res.json({});
+
      });
+
 
     app.get('/matches', isLoggedIn, function (req, res) {
         console.log("called");
@@ -177,15 +179,8 @@ module.exports = function(app, passport, graph) {
         var userData;
         var potentialMatches;
 
-        // Retrieve user data
-        User.findOne({'authenticate.id' : req.user.authenticate.id}, function (err, user) {
-            if (err) {
-                console.error(err);
-                return;
-            } 
-            userData = user;
-            matchSettings = user.settings;
-        });
+        var userData = req.user;
+        var matchSettings = userData.settings;
 
         // Find other profiles in the user's location
         User.find({ 
@@ -305,7 +300,6 @@ module.exports = function(app, passport, graph) {
     app.get('/*', function(req, res) {
         res.sendFile(__dirname + "/index.html"); // load the index.ejs file
     });
-
 };
 
 // route middleware to make sure a user is logged in
