@@ -65,6 +65,7 @@ module.exports = function(passport) {
                     newUser.authenticate.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     newUser.authenticate.photo = profile.photos[0].value;
                     newUser.settings = {orientation: 'Straight', likes: true, friends: false, location: false, hometown: false, tagged_places: false, events: false, music: false, books: false};
+                    newUser.matches = {};
                     // save our user to the database
                     newUser.save(function(err) {
                         if (err)

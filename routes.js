@@ -148,6 +148,7 @@ module.exports = function(app, passport, graph) {
             if(err) {
                 console.log("ERROR!");
                 console.error('ERROR! Couldn\'t save profile information.');
+
             }
 
             res.json({});
@@ -164,7 +165,9 @@ module.exports = function(app, passport, graph) {
         var userData = req.user;
         var matchSettings = userData.settings;
 
-        // Find other profiles in the user's location
+        console.log(userData.matches);
+
+        // Find other profiles in the user's location that have not been liked
         var options = { 
             'location.id' : userData.location.id, 
             'authenticate.id' : { $ne : userData.authenticate.id, $nin: Object.keys(userData.matches)},
@@ -223,6 +226,10 @@ module.exports = function(app, passport, graph) {
                         console.error(err);
                         return;
                     } 
+                    var ageMS = Date.now() - Date.UTC(parseInt(user.birthday.slice(6,10)), 
+                                                        parseInt(user.birthday.slice(0,2)) - 1, 
+                                                        parseInt(user.birthday.slice(3,5)));
+                    var age = Math.floor(ageMS/1000/60/60/24/365);
                     var prospect = {
                         id: user.authenticate.id,
                         email: user.authenticate.email,
@@ -230,9 +237,9 @@ module.exports = function(app, passport, graph) {
                         last_name: user.last_name,
                         gender: user.gender,
                         hometown: user.hometown,
-                        photo: user.authenticate.photo
+                        photo: user.authenticate.photo,
+                        age : age
                     };
-                    console.log(prospect);
 
                     res.json(prospect);
                 });
