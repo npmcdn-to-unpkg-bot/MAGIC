@@ -183,15 +183,11 @@ module.exports = function(app, passport, graph) {
             'location.id' : userData.location.id, 
             'authenticate.id' : { $ne : userData.authenticate.id }
         };
-        console.log(options);
         User.find(options, function (err, users) {
-            console.log('test');
-            console.log(users);
             if (err) {
                 console.error(err);
                 return;
             }
-            console.log('test2');
             var potentialMatches = users;
 
             // Takes in an associative array of { userID: __, score: }
@@ -201,23 +197,21 @@ module.exports = function(app, passport, graph) {
             
             for (var i = 0; i < potentialMatches.length; i+=1) {
                 var currScore = 0;
-                console.log(matchSettings);
                 var matchSettingsKeys = Object.keys(matchSettings);
 
-
                 for (var j = 0; j < matchSettingsKeys.length; j+=1) {
-                    if (matchSettings.matchSettingsKeys[j]) {
-
-                        if (userData.matchSettingsKeys[j].length === undefined) { // i.e. not a list
-                            if (userData.matchSettingsKeys[j].id === potentialMatches[i].matchSettingsKeys[j].id) {
-                                score += 1;
+                    var matchSettingKey = matchSettingsKeys[j];
+                    if (matchSettingKey) {
+                        if (userData[matchSettingKey].length === undefined) { // i.e. not a list
+                            if (userData[matchSettingKey].id === potentialMatches[i][matchSettingKey].id) {
+                                currScore += 1;
                             }
                         } else { // list of attributes
-                            for (var k = 0; k < userData.matchSettingsKeys[j].length; k+=1) { 
-                                var userAttr = userData.matchSettingsKeys[j][k];
-                                for (var l = 0; l < potentialMatches[i].matchSettingsKeys[j].length; l+=1) {
-                                    if (userAttr.id === potentialMatches[i].matchSettingsKeys[j][l].id) {
-                                        score += 1;
+                            for (var k = 0; k < userData[matchSettingKey].length; k+=1) { 
+                                var userAttr = userData[matchSettingKey][k];
+                                for (var l = 0; l < potentialMatches[i][matchSettingKey].length; l+=1) {
+                                    if (userAttr.id === potentialMatches[i][matchSettingKey][l].id) {
+                                        currScore += 1;
                                     }
                                 }
                             }
