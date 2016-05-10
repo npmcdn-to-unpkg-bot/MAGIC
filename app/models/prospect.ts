@@ -9,6 +9,6 @@ export class Prospect {
     public photo:string,
     public age:string,
     public score:string,
-    public common_likes:string
+    public common_likes:Array<string>
     ) { }
 }
