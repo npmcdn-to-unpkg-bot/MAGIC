@@ -39,7 +39,7 @@ nav {
 	width: 60%;
 	margin-top: 10%;
 	margin-left: 20%;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .magic-large-container {
@@ -48,11 +48,48 @@ nav {
 	margin-left: 2.5%;
 }
 
+.magic-left-container {
+  display: inline-block;
+  overflow: auto;
+  width: 25%;
+}
+
+.magic-right-container {
+  display: inline-block;
+  overflow: auto;
+  margin-left: 2%;
+  width: 60%;
+}
+
+/* CSS for wrappers */
 .magic-wrapper {
   box-sizing: border-box;
+  overflow: auto;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  width: 95%;
+  margin-left: 2.5%;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+.magic-left-wrapper {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: auto;
   margin-top: 50px;
-  margin-left: 40px;
-  width: auto;
+  width: 25%;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+.magic-right-wrapper {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: auto;
+  margin-top: 50px;
+  margin-left: 2%;
+  width: 60%;
   box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
   border-radius: 3px;
 }
@@ -72,7 +109,6 @@ nav {
   font-size:3em;
   color:#FFF;
   text-transform:uppercase;
-  /*text-shadow:#000 0px 1px 5px;*/
 }
 
 
@@ -98,9 +134,9 @@ nav {
   text-shadow:#000 0px 1px 5px;
 }
 
-.magic-data-primary {
+.magic-text-normal {
   font-family: Raleway, sans-serif;
-  font-size:1.3em;
+  font-size:1.2em;
   color:#BBBBBB;
 }
 
@@ -136,10 +172,8 @@ nav {
   text-decoration: none;
 }
 
-#cssmenu {
-  margin-top: 20px;
-}
 
+/* CSS for navmenu */
 #cssmenu,
 #cssmenu ul,
 #cssmenu ul li,

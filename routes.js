@@ -43,8 +43,6 @@ module.exports = function(app, passport, graph) {
     // route for showing the profile page
     app.get('/profile', isLoggedIn, function(req, res) {
 
-        res.json(req.user.authenticate);
-
         // set the params for what user information to get from the api
         var params = {fields: "first_name,last_name,gender,birthday,email,likes.limit(100),photos.limit(50),friends.limit(50),location,tagged_places.limit(50),events.limit(50),hometown,books.limit(50),music.limit(50)" };
         graph
@@ -116,6 +114,8 @@ module.exports = function(app, passport, graph) {
                 if (user_book_object !== undefined) {
                     user.books = user_book_object.data;
                 }
+
+                res.json(user);
                 
                 user.save(function (err) {
                     if(err) {
