@@ -27,12 +27,10 @@ export class FindComponent {
 
   getProspect() {
    this._findService.getProspect()
-
     .subscribe(
-      prospect => this.prospect = prospect,
-      error =>  this.errorMessage = "No matches were found.");  
-
-    }
+      prospect => {this.prospect = prospect},
+      error =>  this.errorMessage = <any>error);  
+  }
 
   postDecision(decision){
   	this._findService.postDecision(this.prospect.id,decision);
