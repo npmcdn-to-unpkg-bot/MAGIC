@@ -8,6 +8,7 @@ import {SettingsComponent} from './settings.component';
 @Component({
   selector: 'home',
   templateUrl: './app/components/home.component.html',
+  styleUrls: ['./app/css/home.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: []
 })

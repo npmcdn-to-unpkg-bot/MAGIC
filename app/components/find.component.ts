@@ -12,6 +12,7 @@ type 'profile' will not be used. Will switch once server side is able to send in
 @Component({
   selector: 'find',
   templateUrl: './app/components/find.component.html',
+  styleUrls: ['./app/css/find.css'],
   providers: [FindService]
 })
 
@@ -27,10 +28,13 @@ export class FindComponent {
 
   getProspect() {
    this._findService.getProspect()
+
     .subscribe(
       prospect => this.prospect = prospect,
-      error =>  this.errorMessage = <any>error);  
-  }
+      error =>  this.errorMessage = "No matches were found.");  
+
+    }
+    
 
   postDecision(decision){
   	this._findService.postDecision(this.prospect.id,decision);

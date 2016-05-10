@@ -72,8 +72,11 @@ var userSchema = mongoose.Schema({
         created_time : String
     }],
     settings         : Object,
-    prospect         : Object
+    prospect         : Object,
+    likes            : Object
 });
+
+   
 
 // methods ======================
 // generating a hash
