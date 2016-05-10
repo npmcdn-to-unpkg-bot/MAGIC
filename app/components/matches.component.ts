@@ -23,9 +23,11 @@ export class MatchesComponent {
 	public errorMessage: string;
 
 	ngOnInit() { 
-		this.getMatches(); 
+		this.getMatches();
 		setInterval(() => {
 			this.getMatches();
+		}, 5000);
+		setInterval(() => {
 			if(this.selection) {
 				this.getMessages();
 			}

@@ -262,7 +262,7 @@ module.exports = function(app, passport, graph) {
             return req.user.matches[otherId];
         });
 
-        console.log(matches);
+        //console.log(matches);
 
         var id = req.user.authenticate.id;
         var query = {
@@ -274,13 +274,13 @@ module.exports = function(app, passport, graph) {
                 $exists: true,
                 $eq: true
             }
-        console.log(JSON.stringify(query));
+        //console.log(JSON.stringify(query));
         User.find(query, function (err, users) {
             if (err) {
                 res.sendStatus(500);
                 return;
             }
-            console.log(users);
+            //console.log(users);
             res.json(users.map(function (user) {
                 return {
                     id: user.authenticate.id,
