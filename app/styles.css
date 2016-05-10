@@ -52,13 +52,17 @@ nav {
   display: inline-block;
   overflow: auto;
   width: 25%;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .magic-right-container {
   display: inline-block;
   overflow: auto;
-  margin-left: 2%;
-  width: 60%;
+  margin-left: 10%;
+  width: 25%;
+  vertical-align: middle;
+  text-align: left;
 }
 
 /* CSS for wrappers */
@@ -139,6 +143,7 @@ nav {
   font-size:1.2em;
   color:#BBBBBB;
 }
+
 
 
 
