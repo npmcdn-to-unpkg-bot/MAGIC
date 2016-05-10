@@ -247,6 +247,7 @@ module.exports = function(app, passport, graph) {
                         first_name: user.first_name,
                         last_name: user.last_name,
                         gender: user.gender,
+                        hometown: user.hometown,
                         photo: user.authenticate.photo
                     };
                     console.log(prospect);

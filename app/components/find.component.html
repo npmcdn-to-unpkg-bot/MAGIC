@@ -9,7 +9,9 @@
             <img [src]="prospect.photo" height="200px" width="200px"/>
             <p>
                 <span class="text-primary"> email: </span><span class="data-primary"> {{prospect.email}}</span><br>
-                <span class="text-primary"> name: </span><span class="data-primary"> {{prospect.name}}</span><br>
+                <span class="text-primary"> Name: </span><span class="data-primary"> {{prospect.first_name}} {{prospect.last_name}}</span><br>
+                 <span class="text-primary"> Hometown: </span><span class="data-primary"> {{prospect.hometown.name}}</span><br>
+                 <span class="text-primary"> Sex: </span><span class="data-primary"> {{prospect.gender}}</span><br>
                 <!--Add more once server is ready --> 
                
             </p>
