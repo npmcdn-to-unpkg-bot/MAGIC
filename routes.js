@@ -76,7 +76,10 @@ module.exports = function(app, passport, graph) {
                 if (user_gender !== undefined) {
                     user.gender = user_gender;
                     //setting default orientation
-                    user.settings.orientation = (user.gender == "male") ? "Women" : "Men";
+                    if(user.settings.orientation === null) {
+                        user.settings.orientation = (user.gender === "male") ? "Women" : "Men";
+                        user.markModified('settings');                        
+                    }
                 }
                 if (user_birthday !== undefined) {
                     user.birthday = user_birthday;
@@ -163,16 +166,16 @@ module.exports = function(app, passport, graph) {
         var common = [];
         console.log("called server side");
 
-        
         var userData = req.user;
         var matchSettings = userData.settings;
 
-        console.log(userData.matches);
+        var prefGend = (matchSettings.orientation === 'Both') ? ['male', 'female'] : [(matchSettings.orientation === 'Men') ? 'male' : 'female'];
 
         // Find other profiles in the user's location that have not been liked
         var options = { 
             'location.id' : userData.location.id, 
             'authenticate.id' : { $ne : userData.authenticate.id, $nin: Object.keys(userData.matches)},
+            'gender' : { $in : prefGend }
         };
         User.find(options, function (err, users) {
             if (err) {
@@ -222,8 +225,6 @@ module.exports = function(app, passport, graph) {
                     userID : potentialMatches[i].authenticate.id,
                     score  : currScore
                 };
-
-                console.log('added');
 
                 matchRanking.add(currMatch);
             }
