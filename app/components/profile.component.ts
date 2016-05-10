@@ -8,6 +8,7 @@ import {Profile} from '../models/profile';
 @Component({
   selector: 'profile',
   templateUrl: './app/components/profile.component.html',
+  styleUrls: ['./app/css/profile.css'],
   providers: [ProfilesService]
 })
 

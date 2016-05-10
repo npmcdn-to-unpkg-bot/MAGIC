@@ -1,27 +1,31 @@
 <div class="container">
-    <div class="large-container">
-        <div class="page-header text-center">
-            <h1 class="title-secondary"> Settings Page </h1>
-        </div>
-    
-        <div class="form-container">
-            <h3 class="text-primary">Matching algorithm</h3>
-            <p class="text-primary"> Pick how you want to match with people:</p>
+    <div class="magic-large-container">    
+        <div class="magic-wrapper">
+            <h3 class="magic-text-primary magic-text-centered">Matching algorithm</h3>
+            <hr class="magic-hr">
+            <p class="magic-text-secondary magic-text-centered"> Pick how you want to match with people:</p>
             <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
             <form *ngIf="settings">
               <select class="form-control" [(ngModel)]="settings.orientation">
                 <option *ngFor="#o of orientations" [value]="o">{{o}}</option>
               </select>
-              <input type="checkbox" [(ngModel)]="settings.likes"><span class="text-primary"> Likes </span><br>
-              <input type="checkbox" [(ngModel)]="settings.friends"><span class="text-primary"> Friends </span><br>
-              <input type="checkbox" [(ngModel)]="settings.location"><span class="text-primary"> Location </span><br>
-              <input type="checkbox" [(ngModel)]="settings.hometown"><span class="text-primary"> Hometown </span><br>
-              <input type="checkbox" [(ngModel)]="settings.tagged_places"><span class="text-primary"> Tagged Places </span><br>
-              <input type="checkbox" [(ngModel)]="settings.events"><span class="text-primary"> Events </span><br>
-              <input type="checkbox" [(ngModel)]="settings.music"><span class="text-primary"> Music </span><br>
-              <input type="checkbox" [(ngModel)]="settings.books"><span class="text-primary"> Books </span><br>
-              <button (click)="postSettings()" class="btn btn-primary">Change Preferences</button>
+              <input type="checkbox" [(ngModel)]="settings.likes"><span class="magic-text-primary"> Likes </span><br>
+              <input type="checkbox" [(ngModel)]="settings.friends"><span class="magic-text-primary"> Friends </span><br>
+              <input type="checkbox" [(ngModel)]="settings.location"><span class="magic-text-primary"> Location </span><br>
+              <input type="checkbox" [(ngModel)]="settings.hometown"><span class="magic-text-primary"> Hometown </span><br>
+              <input type="checkbox" [(ngModel)]="settings.tagged_places"><span class="magic-text-primary"> Tagged Places </span><br>
+              <input type="checkbox" [(ngModel)]="settings.events"><span class="magic-text-primary"> Events </span><br>
+              <input type="checkbox" [(ngModel)]="settings.music"><span class="magic-text-primary"> Music </span><br>
+              <input type="checkbox" [(ngModel)]="settings.books"><span class="magic-text-primary"> Books </span><br>
+              <button (click)="postSettings()" class="magic-btn-primary">Change Preferences</button>
             </form>  
         </div> 
+
+        <div class="magic-wrapper">
+            <h3 class="magic-text-primary">Personal Details</h3>
+            <hr class="magic-hr">
+            <!-- NEED TO CONVERT TO ANGULAR SO A POST CAN BE MADE -->
+            
+        </div>         
     </div>
 </div>
