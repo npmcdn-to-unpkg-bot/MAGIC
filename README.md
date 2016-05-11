@@ -1,14 +1,18 @@
-Don't store db config in the git repo.
-Other security measures.
-Superlike?
-Put common interest name list under the swipe options.
+# Magic
+A SIMPLE, FUNCTIONAL, AND UNIQUE DATING APP THAT GIVES USERS MORE CONTROL OVER THEIR MATCHING PROCESS THAN COMPETITORS
 
-The routes need to be finished in routes.js
+## Use Guide
+Run 'npm install' followed by 'node server.js'.
+Ensure that node and npm versions are those specified in engines property of package.json.
+To authenticate in the app, you must be registered as a developer/tester in our Facebook API due to our limited permissions.
+Let us know what account we need to grant permissions to for your testing.
 
-REVERT PORT AND LOCALHOST
 
+## Report
+Final report is titled CS132FinalReport_510.pdf.
 
-Bluebird to promisify everything.
-Gulp with fixed heroku deploying.
+## Website
+cs132-herokuapp.com
 
-https://github.com/mgechev/angular2-style-guide
+## Github
+https://github.com/eronning/MAGIC
