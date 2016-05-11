@@ -350,7 +350,6 @@ module.exports = function(app, passport, graph) {
     });
 
     app.get('/*', function(req, res) {
-        console.log('wutface');
         res.sendFile(__dirname + "/index.html"); // load the index.ejs file
     });
 };
