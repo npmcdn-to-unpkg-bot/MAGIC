@@ -1,5 +1,5 @@
 # Magic
-A SIMPLE, FUNCTIONAL, AND UNIQUE DATING APP THAT GIVES USERS MORE CONTROL OVER THEIR MATCHING PROCESS THAN COMPETITORS
+A simple, functional, amd unique dating app that gives users more control over their matching process than competitors.
 
 ## Use Guide
 Run 'npm install' followed by 'node server.js'.
